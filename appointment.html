@@ -58,10 +58,6 @@
             gap: 10px;
         }
 
-        .logo-icon {
-            font-size: 1.5rem;
-        }
-
         nav ul {
             display: flex;
             list-style: none;
@@ -82,22 +78,6 @@
         nav a:hover {
             color: #b39c7d;
             background: rgba(179, 156, 125, 0.1);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #b39c7d, #d4b78f);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after {
-            width: 80%;
         }
 
         .mobile-menu-btn {
@@ -156,7 +136,7 @@
 
         .warning-popup.active {
             display: block;
-            animation: shake 0.5s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .warning-header {
@@ -218,10 +198,9 @@
             display: block;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-            25% { transform: translate(-50%, -50%) rotate(1deg); }
-            75% { transform: translate(-50%, -50%) rotate(-1deg); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
         }
 
         /* Appointment Form */
@@ -315,8 +294,10 @@
             box-shadow: 0 15px 30px rgba(179, 156, 125, 0.4);
         }
 
-        .submit-btn:active {
-            transform: translateY(-1px);
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none !important;
         }
 
         .submit-btn.glow {
@@ -380,6 +361,17 @@
             to {
                 transform: translateX(0);
                 opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
             }
         }
 
@@ -558,16 +550,6 @@
                 max-width: calc(100% - 40px);
             }
         }
-
-        @media (max-width: 576px) {
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .footer-links {
-                flex-direction: column;
-            }
-        }
     </style>
 </head>
 <body>
@@ -581,7 +563,6 @@
         <div class="warning-content">
             <p>Please remember you are talking with lawyers. Our time is valuable and dedicated to helping clients with genuine legal matters.</p>
             <p>Please ensure you have all necessary documents and information ready before your appointment. Cancellations should be made at least 24 hours in advance.</p>
-            <p>We reserve the right to charge consultation fees for no-shows or last-minute cancellations.</p>
         </div>
         <button class="warning-close" id="closeWarning">I Understand</button>
     </div>
@@ -673,7 +654,7 @@
                 
                 <div class="form-group">
                     <label for="contact">Contact Number <span class="required">*</span></label>
-                    <input type="tel" id="contact" name="contact" required placeholder="Enter your 10-digit mobile number">
+                    <input type="tel" id="contact" name="contact" required placeholder="Enter your 10-digit mobile number" pattern="[0-9]{10}">
                 </div>
             </div>
             
@@ -684,14 +665,11 @@
                         <option value="">Select Case Type</option>
                         <option value="criminal">Criminal Law</option>
                         <option value="civil">Civil Law</option>
-                        <option value="constitutional">Constitutional Law</option>
                         <option value="family">Family Law</option>
                         <option value="property">Property Disputes</option>
                         <option value="corporate">Corporate Law</option>
                         <option value="contract">Contract Disputes</option>
                         <option value="cyber">Cyber Law</option>
-                        <option value="ip">Intellectual Property</option>
-                        <option value="consumer">Consumer Law</option>
                         <option value="other">Other</option>
                     </select>
                 </div>
@@ -705,7 +683,7 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="appointmentDate">Appointment Date <span class="required">*</span></label>
-                    <input type="date" id="appointmentDate" name="appointmentDate" required min="">
+                    <input type="date" id="appointmentDate" name="appointmentDate" required>
                 </div>
                 
                 <div class="form-group">
@@ -715,11 +693,9 @@
                         <option value="09:00-10:00">09:00 AM - 10:00 AM</option>
                         <option value="10:00-11:00">10:00 AM - 11:00 AM</option>
                         <option value="11:00-12:00">11:00 AM - 12:00 PM</option>
-                        <option value="12:00-13:00">12:00 PM - 01:00 PM</option>
                         <option value="14:00-15:00">02:00 PM - 03:00 PM</option>
                         <option value="15:00-16:00">03:00 PM - 04:00 PM</option>
                         <option value="16:00-17:00">04:00 PM - 05:00 PM</option>
-                        <option value="17:00-18:00">05:00 PM - 06:00 PM</option>
                     </select>
                 </div>
             </div>
@@ -729,7 +705,7 @@
                 <textarea id="description" name="description" required placeholder="Please provide a detailed description of your legal matter..."></textarea>
             </div>
             
-            <button type="submit" class="submit-btn glow">
+            <button type="submit" class="submit-btn glow" id="submitBtn">
                 <i class="fas fa-calendar-check"></i> Book Appointment Now
             </button>
         </form>
@@ -776,21 +752,36 @@
     </footer>
 
     <script>
-        // Firebase Configuration
+        // ========== YOUR FIREBASE CONFIGURATION ==========
         const firebaseConfig = {
-            apiKey: "AIzaSyCBC6qPxcbq4MlbxAxgfIBa0PsyNsFe7PI",
-            authDomain: "test1-9a62b.firebaseapp.com",
-            databaseURL: "https://test1-9a62b-default-rtdb.firebaseio.com",
-            projectId: "test1-9a62b",
-            storageBucket: "test1-9a62b.firebasestorage.app",
-            messagingSenderId: "960282316150",
-            appId: "1:960282316150:web:d8cc1b7a8868313b4e7e57",
-            measurementId: "G-H84YVV6W1C"
+            apiKey: "AIzaSyDrLT59xzR-40CfrMpUzwwo02i1-71ezXU",
+            authDomain: "test2-25512.firebaseapp.com",
+            databaseURL: "https://test2-25512-default-rtdb.firebaseio.com",
+            projectId: "test2-25512",
+            storageBucket: "test2-25512.firebasestorage.app",
+            messagingSenderId: "53110265530",
+            appId: "1:53110265530:web:1cfac2ef1c9060b141d483"
         };
 
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        try {
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+            console.log("Firebase initialized successfully!");
+        } catch (error) {
+            console.error("Firebase initialization error:", error);
+            showNotification("Firebase connection error. Please try again later.", "error");
+        }
+        
         const database = firebase.database();
+
+        // DOM Elements
+        const appointmentForm = document.getElementById('appointmentForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successNotification = document.getElementById('successNotification');
+        const warningPopup = document.getElementById('warningPopup');
+        const popupOverlay = document.getElementById('popupOverlay');
 
         // Mobile Menu Toggle
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
@@ -801,19 +792,19 @@
         document.addEventListener('DOMContentLoaded', function() {
             if (!sessionStorage.getItem('warningShown')) {
                 setTimeout(function() {
-                    document.getElementById('warningPopup').classList.add('active');
-                    document.getElementById('popupOverlay').classList.add('active');
+                    warningPopup.classList.add('active');
+                    popupOverlay.classList.add('active');
                     sessionStorage.setItem('warningShown', 'true');
                 }, 1000);
             }
             
             document.getElementById('closeWarning').addEventListener('click', function() {
-                document.getElementById('warningPopup').classList.remove('active');
-                document.getElementById('popupOverlay').classList.remove('active');
+                warningPopup.classList.remove('active');
+                popupOverlay.classList.remove('active');
             });
             
-            document.getElementById('popupOverlay').addEventListener('click', function() {
-                document.getElementById('warningPopup').classList.remove('active');
+            popupOverlay.addEventListener('click', function() {
+                warningPopup.classList.remove('active');
                 this.classList.remove('active');
             });
         });
@@ -840,8 +831,12 @@
         });
 
         // Form Submission
-        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        appointmentForm.addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
             
             // Get form values
             const formData = {
@@ -855,7 +850,8 @@
                 time: document.getElementById('time').value,
                 description: document.getElementById('description').value.trim(),
                 timestamp: Date.now(),
-                status: 'pending'
+                status: 'pending',
+                createdAt: new Date().toISOString()
             };
             
             // Validation
@@ -863,64 +859,81 @@
                 !formData.caseType || !formData.appointmentDate || !formData.time || 
                 !formData.description) {
                 showNotification('Please fill all required fields!', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Book Appointment Now';
                 return;
             }
             
             if (formData.contact.length < 10) {
-                showNotification('Please enter a valid contact number!', 'error');
+                showNotification('Please enter a valid contact number (10 digits minimum)!', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Book Appointment Now';
                 return;
             }
             
-            // Submit to Firebase
-            const appointmentsRef = database.ref('appointments');
-            const newAppointmentRef = appointmentsRef.push();
-            
-            newAppointmentRef.set(formData)
-                .then(() => {
-                    // Show success notification
-                    showNotification('Appointment booked successfully! We will contact you soon.', 'success');
-                    
-                    // Reset form
-                    document.getElementById('appointmentForm').reset();
-                    document.querySelectorAll('.lawyer-select').forEach(l => {
-                        l.classList.remove('active');
-                    });
-                    document.getElementById('appointmentDate').min = today;
-                    
-                    // Auto-dismiss notification after 5 seconds
-                    setTimeout(() => {
-                        hideNotification();
-                    }, 5000);
-                })
-                .catch((error) => {
-                    console.error('Error saving appointment:', error);
-                    showNotification('Error booking appointment. Please try again!', 'error');
+            try {
+                // Submit to Firebase
+                const appointmentsRef = database.ref('appointments');
+                const newAppointmentRef = appointmentsRef.push();
+                
+                await newAppointmentRef.set(formData);
+                
+                // Show success notification
+                showNotification('Appointment booked successfully! We will contact you soon.', 'success');
+                
+                // Reset form
+                appointmentForm.reset();
+                document.querySelectorAll('.lawyer-select').forEach(l => {
+                    l.classList.remove('active');
                 });
+                document.getElementById('appointmentDate').min = today;
+                
+                // Log success
+                console.log('Appointment saved successfully:', formData);
+                
+            } catch (error) {
+                console.error('Error saving appointment:', error);
+                showNotification('Error booking appointment. Please try again!', 'error');
+            } finally {
+                // Restore button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-calendar-check"></i> Book Appointment Now';
+            }
         });
 
         // Notification Functions
         function showNotification(message, type = 'success') {
-            const notification = document.getElementById('successNotification');
-            const messageElement = notification.querySelector('.notification-message h4');
-            const icon = notification.querySelector('.notification-icon');
+            const messageElement = successNotification.querySelector('.notification-message h4');
+            const icon = successNotification.querySelector('.notification-icon');
             
             messageElement.textContent = message;
             
             if (type === 'error') {
-                notification.classList.add('error');
-                notification.classList.remove('success');
+                successNotification.classList.add('error');
+                successNotification.classList.remove('success');
                 icon.className = 'fas fa-exclamation-circle notification-icon';
             } else {
-                notification.classList.add('success');
-                notification.classList.remove('error');
+                successNotification.classList.add('success');
+                successNotification.classList.remove('error');
                 icon.className = 'fas fa-check-circle notification-icon';
             }
             
-            notification.classList.add('active');
+            // Show notification
+            successNotification.classList.add('active');
+            
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                hideNotification();
+            }, 5000);
         }
 
         function hideNotification() {
-            document.getElementById('successNotification').classList.remove('active');
+            // Add slide out animation
+            successNotification.style.animation = 'slideOutRight 0.5s ease forwards';
+            setTimeout(() => {
+                successNotification.classList.remove('active');
+                successNotification.style.animation = '';
+            }, 500);
         }
 
         // Scroll Animations
@@ -939,7 +952,21 @@
 
         window.addEventListener('scroll', checkFade);
         window.addEventListener('resize', checkFade);
-        checkFade(); // Initial check
+        checkFade();
+
+        // Test Firebase connection on load
+        window.addEventListener('load', function() {
+            const testRef = database.ref('testConnection');
+            testRef.set({
+                test: true,
+                timestamp: Date.now()
+            }).then(() => {
+                console.log('Firebase connection test: SUCCESS');
+                testRef.remove(); // Clean up
+            }).catch(error => {
+                console.error('Firebase connection test: FAILED', error);
+            });
+        });
     </script>
 </body>
 </html>
