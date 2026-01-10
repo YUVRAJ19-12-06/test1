@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Linpane Legal Associates</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Contact Us - Linpane Legal Associates</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,276 +14,348 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #121212;
-            color: #f0f0f0;
-            overflow-x: hidden;
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
         }
 
+        /* Header Styles */
         header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 15px 0;
             position: fixed;
-            top: 0;
             width: 100%;
-            padding: 15px 5%;
-            background: rgba(18, 18, 18, 0.98);
-            backdrop-filter: blur(10px);
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            border-bottom: 2px solid #D4AF37;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #D4AF37;
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            text-decoration: none;
+            color: white;
         }
 
-        .logo img {
-            height: 40px;
-            width: auto;
+        .logo-icon {
+            font-size: 2rem;
+            color: #c9a96e;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo span {
+            color: #c9a96e;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 20px;
         }
 
-        nav a {
-            color: #f0f0f0;
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: white;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: color 0.3s;
             padding: 8px 15px;
             border-radius: 4px;
-            transition: all 0.3s ease;
         }
 
-        nav a:hover {
-            color: #D4AF37;
-            background: rgba(212, 175, 55, 0.1);
+        nav ul li a:hover {
+            color: #c9a96e;
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
-        .mobile-menu-btn {
+        .hamburger {
             display: none;
-            background: none;
-            border: none;
-            color: #f0f0f0;
             font-size: 1.5rem;
             cursor: pointer;
         }
 
-        .main-content {
+        /* Main Content */
+        main {
             margin-top: 80px;
-            padding: 0 5%;
+            padding: 40px 20px;
         }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            margin-bottom: 40px;
+        .page-title {
             text-align: center;
-            color: #f0f0f0;
+            margin-bottom: 50px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5rem;
+            color: #1a1a1a;
             position: relative;
-            padding-bottom: 15px;
         }
 
-        .section-title::after {
+        .page-title:after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
             width: 100px;
             height: 3px;
-            background: linear-gradient(90deg, #D4AF37, #FFD700);
+            background-color: #c9a96e;
         }
 
+        /* Contact Container */
         .contact-container {
-            max-width: 1000px;
-            margin: 0 auto 60px;
-        }
-
-        .contact-info-grid {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 40px;
+        }
+
+        /* Lawyers Contact Info */
+        .lawyers-contact {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .section-subtitle {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #c9a96e;
+        }
+
+        .lawyer-contact-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .lawyer-contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .lawyer-name {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.3rem;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .lawyer-specialization {
+            color: #c9a96e;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .contact-info i {
+            color: #c9a96e;
+            width: 20px;
+            margin-right: 10px;
+        }
+
+        /* Office Info */
+        .office-info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .office-details {
+            margin-bottom: 30px;
+        }
+
+        .office-details p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .office-details i {
+            color: #c9a96e;
+            margin-right: 10px;
+            margin-top: 5px;
+            width: 20px;
+        }
+
+        .hours-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .hours-list li {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Map Container */
+        .map-container {
+            margin-top: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 300px;
+            background-color: #e9e9e9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+        }
+
+        .map-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #c9a96e;
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 50px 20px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
             margin-bottom: 40px;
         }
 
-        .contact-card {
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(212, 175, 55, 0.4);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
-        }
-
-        .contact-card h3 {
-            color: #D4AF37;
-            margin-bottom: 20px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-        }
-
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .contact-item i {
-            color: #D4AF37;
-            font-size: 1.2rem;
-            margin-top: 2px;
-        }
-
-        .contact-item p {
-            color: #d0d0d0;
-            line-height: 1.6;
-        }
-
-        .map-container {
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            text-align: center;
-        }
-
-        .map-container h3 {
-            color: #D4AF37;
-            margin-bottom: 20px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-        }
-
-        .map-link {
-            display: inline-block;
-            background: linear-gradient(135deg, #D4AF37, #FFD700);
-            color: #121212;
-            text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .map-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-            background: linear-gradient(135deg, #FFD700, #D4AF37);
-        }
-
-        .office-hours {
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            margin-top: 40px;
-        }
-
-        .hours-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .hour-item {
-            text-align: center;
-            padding: 15px;
-            background: rgba(212, 175, 55, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .hour-item h4 {
-            color: #D4AF37;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        footer {
-            background: #0a0a0a;
-            padding: 50px 5% 25px;
-            border-top: 2px solid rgba(212, 175, 55, 0.3);
-            text-align: center;
-        }
-
-        .footer-logo h3 {
-            font-family: 'Playfair Display', serif;
+        .footer-logo h2 {
+            font-family: 'Roboto', sans-serif;
             font-size: 1.8rem;
             margin-bottom: 15px;
-            color: #D4AF37;
+        }
+
+        .footer-logo span {
+            color: #c9a96e;
+        }
+
+        .footer-links h3, .footer-contact h3 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #c9a96e;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: #c9a96e;
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            color: #ddd;
+        }
+
+        .footer-contact i {
+            color: #c9a96e;
+            margin-right: 10px;
+            width: 20px;
         }
 
         .copyright {
             text-align: center;
-            padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #777;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            color: #999;
             font-size: 0.9rem;
-            margin-top: 40px;
         }
 
+        /* Responsive Styles */
         @media (max-width: 768px) {
-            .logo {
-                font-size: 1.3rem;
-            }
-
-            nav ul {
-                display: none;
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                background: rgba(18, 18, 18, 0.98);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-                z-index: 999;
-            }
-
-            nav ul.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
+            .hamburger {
                 display: block;
             }
 
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .contact-info-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-card {
+            nav ul {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background-color: #1a1a1a;
+                width: 200px;
                 padding: 20px;
+                transition: right 0.3s;
+                box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .page-title {
+                font-size: 2rem;
             }
         }
     </style>
@@ -293,170 +363,185 @@
 <body>
     <!-- Header -->
     <header>
-        <a href="index.html" class="logo">
-            <img src="logo.png" alt="LLA Logo">
-            <span>Linpane Legal Associates</span>
-        </a>
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
-        <nav>
-            <ul id="navMenu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="team.html">Our Team</a></li>
-                <li><a href="appointment.html">Book Appointment</a></li>
-            </ul>
-        </nav>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h1>Linpane <span>Legal</span></h1>
+            </a>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="appointment.html" class="appointment-nav">Book Appointment</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <h1 class="section-title">Contact Our Legal Experts</h1>
+    <main>
+        <h1 class="page-title fade-in">Contact Our Legal Team</h1>
         
         <div class="contact-container">
-            <!-- Contact Information -->
-            <div class="contact-info-grid">
-                <div class="contact-card">
-                    <h3>ADV. A.V. LINPANE</h3>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-user-tie"></i>
-                            <div>
-                                <p><strong>Senior Advocate</strong></p>
-                                <p>Criminal, Civil, Constitutional Law</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <p>av.linpane@linpanelegal.com</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <p>+91 98765 43211</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <p>Mon-Fri: 10 AM - 6 PM</p>
-                        </div>
+            <!-- Lawyers Contact Information -->
+            <div class="lawyers-contact fade-in">
+                <h2 class="section-subtitle">Our Attorneys</h2>
+                
+                <div class="lawyer-contact-item">
+                    <h3 class="lawyer-name">ADV. A.V. Linpane</h3>
+                    <p class="lawyer-specialization">Senior Advocate - Criminal, Civil & Constitutional Law</p>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <span>av.linpane@linpanelegal.com</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 22 1234 5670</span>
                     </div>
                 </div>
                 
-                <div class="contact-card">
-                    <h3>ADV. SANDYA LINPANE</h3>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-user-tie"></i>
-                            <div>
-                                <p><strong>Family Law Specialist</strong></p>
-                                <p>Family Law, Property Disputes</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <p>sandya.linpane@linpanelegal.com</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <p>+91 98765 43212</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <p>Mon-Sat: 9 AM - 5 PM</p>
-                        </div>
+                <div class="lawyer-contact-item">
+                    <h3 class="lawyer-name">ADV. Sandya Linpane</h3>
+                    <p class="lawyer-specialization">Family Law Specialist</p>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <span>sandya.linpane@linpanelegal.com</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 22 1234 5671</span>
                     </div>
                 </div>
                 
-                <div class="contact-card">
-                    <h3>AKSHAY LINPANE</h3>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fas fa-user-tie"></i>
-                            <div>
-                                <p><strong>Corporate Law Expert</strong></p>
-                                <p>Corporate Law, Contract Disputes</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <p>akshay.linpane@linpanelegal.com</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <p>+91 98765 43213</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <p>Mon-Fri: 9 AM - 7 PM</p>
-                        </div>
+                <div class="lawyer-contact-item">
+                    <h3 class="lawyer-name">Akshay Linpane</h3>
+                    <p class="lawyer-specialization">Corporate Law Attorney</p>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <span>akshay.linpane@linpanelegal.com</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 22 1234 5672</span>
                     </div>
                 </div>
             </div>
             
-            <!-- Map Location -->
-            <div class="map-container">
-                <h3>Our Office Location</h3>
-                <p style="color: #d0d0d0; margin-bottom: 20px; line-height: 1.6;">
-                    123 Justice Street, Legal District, Mumbai, Maharashtra 400001
-                </p>
-                <a href="https://goo.gl/maps/YOUR_MAP_LINK_HERE" class="map-link" target="_blank">
-                    <i class="fas fa-map-marker-alt"></i> View on Google Maps
-                </a>
-            </div>
-            
-            <!-- Office Hours -->
-            <div class="office-hours">
-                <h3 style="color: #D4AF37; text-align: center; margin-bottom: 20px;">Office Hours</h3>
-                <div class="hours-grid">
-                    <div class="hour-item">
-                        <h4>Monday</h4>
-                        <p>9:00 AM - 6:00 PM</p>
-                    </div>
-                    <div class="hour-item">
-                        <h4>Tuesday</h4>
-                        <p>9:00 AM - 6:00 PM</p>
-                    </div>
-                    <div class="hour-item">
-                        <h4>Wednesday</h4>
-                        <p>9:00 AM - 6:00 PM</p>
-                    </div>
-                    <div class="hour-item">
-                        <h4>Thursday</h4>
-                        <p>9:00 AM - 6:00 PM</p>
-                    </div>
-                    <div class="hour-item">
-                        <h4>Friday</h4>
-                        <p>9:00 AM - 6:00 PM</p>
-                    </div>
-                    <div class="hour-item">
-                        <h4>Saturday</h4>
-                        <p>10:00 AM - 4:00 PM</p>
-                    </div>
-                    <div class="hour-item" style="opacity: 0.7;">
-                        <h4>Sunday</h4>
-                        <p>Closed</p>
+            <!-- Office Information -->
+            <div class="office-info fade-in">
+                <h2 class="section-subtitle">Office Information</h2>
+                
+                <div class="office-details">
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span><strong>Main Office:</strong> 123 Justice Avenue, Legal District, Mumbai 400001, Maharashtra, India</span>
+                    </p>
+                    
+                    <p>
+                        <i class="fas fa-clock"></i>
+                        <span><strong>Office Hours:</strong></span>
+                    </p>
+                    <ul class="hours-list">
+                        <li><span>Monday - Friday</span><span>9:00 AM - 7:00 PM</span></li>
+                        <li><span>Saturday</span><span>10:00 AM - 4:00 PM</span></li>
+                        <li><span>Sunday</span><span>Emergency Only</span></li>
+                    </ul>
+                    
+                    <p>
+                        <i class="fas fa-phone"></i>
+                        <span><strong>Reception:</strong> +91 22 1234 5678</span>
+                    </p>
+                    
+                    <p>
+                        <i class="fas fa-fax"></i>
+                        <span><strong>Fax:</strong> +91 22 1234 5679</span>
+                    </p>
+                    
+                    <p>
+                        <i class="fas fa-envelope"></i>
+                        <span><strong>General Inquiries:</strong> info@linpanelegal.com</span>
+                    </p>
+                    
+                    <p>
+                        <i class="fas fa-globe"></i>
+                        <span><strong>Website:</strong> www.linpanelegal.com</span>
+                    </p>
+                </div>
+                
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p>Google Maps Location</p>
+                        <p><small>Replace with actual Google Maps embed code</small></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-logo">
-            <h3>Linpane Legal Associates</h3>
-            <p style="color: #d0d0d0; line-height: 1.6;">Justice, Integrity, Excellence - Serving clients with dedication for over three decades.</p>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <h2>Linpane <span>Legal</span> Associates</h2>
+                <p>Providing expert legal representation since 1990. Your rights, our commitment.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="appointment.html">Book Appointment</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Justice Avenue, Legal District, Mumbai 400001</p>
+                <p><i class="fas fa-phone"></i> +91 22 1234 5678</p>
+                <p><i class="fas fa-envelope"></i> info@linpanelegal.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 7:00 PM</p>
+            </div>
         </div>
+        
         <div class="copyright">
-            <p>&copy; 2025 Linpane Legal Associates. All rights reserved.</p>
+            <p>&copy; 2023 Linpane Legal Associates. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+        // Mobile menu toggle
+        document.getElementById('hamburger').addEventListener('click', function() {
             document.getElementById('navMenu').classList.toggle('active');
         });
+
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkScroll() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('resize', checkScroll);
+        
+        // Initial check
+        checkScroll();
     </script>
 </body>
 </html>
