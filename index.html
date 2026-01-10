@@ -18,7 +18,7 @@
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #121212;
-            color: #e0e0e0;
+            color: #f0f0f0;
             overflow-x: hidden;
         }
 
@@ -38,75 +38,20 @@
         }
 
         .loading-logo {
-            width: 150px;
-            height: 150px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
         }
 
-        .scales {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            animation: balance 2s infinite ease-in-out;
+        .loading-logo img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
         }
 
-        .scale-beam {
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #b39c7d, #d4b78f);
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .scale-pan {
-            width: 30px;
-            height: 15px;
-            background: linear-gradient(135deg, #8c7c65, #b39c7d);
-            border-radius: 0 0 10px 10px;
-            position: absolute;
-            top: 60%;
-        }
-
-        .pan-left {
-            left: 5px;
-            transform: rotate(15deg);
-        }
-
-        .pan-right {
-            right: 5px;
-            transform: rotate(-15deg);
-        }
-
-        .scale-stand {
-            width: 6px;
-            height: 40px;
-            background: #b39c7d;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .logo-text {
-            margin-top: 20px;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #b39c7d, #d4b78f);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 3px;
-        }
-
-        @keyframes balance {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
         }
 
         /* Header */
@@ -114,85 +59,66 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 5%;
-            background: rgba(18, 18, 18, 0.95);
+            padding: 15px 5%;
+            background: rgba(18, 18, 18, 0.98);
             backdrop-filter: blur(10px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid #D4AF37;
         }
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 600;
-            background: linear-gradient(135deg, #b39c7d, #d4b78f);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #D4AF37;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .logo-icon {
-            font-size: 1.5rem;
+        .logo img {
+            height: 40px;
+            width: auto;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 20px;
         }
 
         nav a {
-            color: #e0e0e0;
+            color: #f0f0f0;
             text-decoration: none;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 0.95rem;
             padding: 8px 15px;
             border-radius: 4px;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         nav a:hover {
-            color: #b39c7d;
-            background: rgba(179, 156, 125, 0.1);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #b39c7d, #d4b78f);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after {
-            width: 80%;
+            color: #D4AF37;
+            background: rgba(212, 175, 55, 0.1);
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            color: #e0e0e0;
+            color: #f0f0f0;
             font-size: 1.5rem;
             cursor: pointer;
         }
 
         /* Main Content */
         .main-content {
-            margin-top: 100px;
+            margin-top: 80px;
             padding: 0 5%;
         }
 
@@ -203,13 +129,13 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: #1e1e1e;
-            padding: 40px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
             z-index: 1001;
             max-width: 500px;
             width: 90%;
-            border: 1px solid rgba(179, 156, 125, 0.3);
+            border: 2px solid #D4AF37;
             display: none;
         }
 
@@ -227,26 +153,16 @@
 
         .popup-header h2 {
             font-family: 'Playfair Display', serif;
-            color: #b39c7d;
-            font-size: 1.8rem;
+            color: #D4AF37;
+            font-size: 1.6rem;
         }
 
         .close-btn {
             background: none;
             border: none;
-            color: #e0e0e0;
+            color: #f0f0f0;
             font-size: 1.5rem;
             cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #b39c7d;
-        }
-
-        .popup-content p {
-            margin-bottom: 15px;
-            line-height: 1.6;
         }
 
         .popup-overlay {
@@ -264,54 +180,44 @@
             display: block;
         }
 
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
         /* Hero Section */
         .hero-section {
-            padding: 80px 0;
+            padding: 60px 0;
             text-align: center;
             background: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(18, 18, 18, 0.9));
             border-radius: 15px;
-            margin-bottom: 80px;
+            margin-bottom: 60px;
             position: relative;
             overflow: hidden;
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
-            opacity: 0.1;
-            z-index: -1;
-        }
-
         .hero-section h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #b39c7d, #d4b78f);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #D4AF37;
         }
 
         .hero-section p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             max-width: 800px;
             margin: 0 auto 30px;
             line-height: 1.6;
-            color: #b0b0b0;
+            color: #d0d0d0;
         }
 
         /* Lawyers Profile Carousel */
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
             text-align: center;
-            color: #e0e0e0;
+            color: #f0f0f0;
             position: relative;
             padding-bottom: 15px;
         }
@@ -324,21 +230,21 @@
             transform: translateX(-50%);
             width: 100px;
             height: 3px;
-            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+            background: linear-gradient(90deg, #D4AF37, #FFD700);
         }
 
         .carousel-container {
             position: relative;
             overflow: hidden;
-            padding: 20px 0 60px;
-            margin-bottom: 80px;
+            padding: 20px 0 50px;
+            margin-bottom: 60px;
         }
 
         .carousel {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             transition: transform 0.5s ease;
-            padding: 0 10px;
+            padding: 10px;
         }
 
         .lawyer-card {
@@ -348,17 +254,13 @@
             flex: 0 0 300px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
-            border: 1px solid rgba(179, 156, 125, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .lawyer-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(179, 156, 125, 0.2);
-            border-color: rgba(179, 156, 125, 0.4);
-        }
-
-        .lawyer-card.large {
-            flex: 0 0 350px;
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.4);
         }
 
         .lawyer-img {
@@ -368,18 +270,18 @@
         }
 
         .lawyer-info {
-            padding: 25px;
+            padding: 20px;
         }
 
         .lawyer-name {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 10px;
-            color: #b39c7d;
+            color: #D4AF37;
         }
 
         .lawyer-specialization {
-            color: #a0a0a0;
+            color: #b0b0b0;
             font-size: 0.9rem;
             margin-bottom: 15px;
             line-height: 1.5;
@@ -387,8 +289,8 @@
 
         .lawyer-experience {
             display: inline-block;
-            background: rgba(179, 156, 125, 0.1);
-            color: #d4b78f;
+            background: rgba(212, 175, 55, 0.1);
+            color: #FFD700;
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -400,83 +302,79 @@
             top: 50%;
             transform: translateY(-50%);
             background: rgba(30, 30, 30, 0.8);
-            color: #b39c7d;
-            border: 2px solid rgba(179, 156, 125, 0.3);
-            width: 50px;
-            height: 50px;
+            color: #D4AF37;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 10;
         }
 
         .carousel-btn:hover {
-            background: rgba(179, 156, 125, 0.2);
-            border-color: rgba(179, 156, 125, 0.6);
+            background: rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.6);
         }
 
         .carousel-btn.prev {
-            left: 20px;
+            left: 10px;
         }
 
         .carousel-btn.next {
-            right: 20px;
+            right: 10px;
         }
 
         /* Introduction Section */
         .intro-section {
             display: flex;
-            align-items: center;
-            gap: 50px;
-            margin-bottom: 80px;
-            padding: 40px;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 60px;
+            padding: 30px;
             background: #1e1e1e;
             border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .intro-img {
-            flex: 1;
+            width: 100%;
             border-radius: 10px;
             overflow: hidden;
-            max-height: 400px;
         }
 
         .intro-img img {
             width: 100%;
-            height: 100%;
+            height: auto;
             object-fit: cover;
-        }
-
-        .intro-content {
-            flex: 1;
         }
 
         .intro-content h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 20px;
-            color: #b39c7d;
+            color: #D4AF37;
         }
 
         .intro-content p {
             line-height: 1.7;
             margin-bottom: 15px;
-            color: #b0b0b0;
+            color: #d0d0d0;
         }
 
         /* Top Cases Section */
         .cases-section {
-            margin-bottom: 80px;
+            margin-bottom: 60px;
         }
 
         .cases-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 25px;
         }
 
         .case-box {
@@ -485,15 +383,15 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
-            border: 1px solid rgba(179, 156, 125, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             height: 250px;
             position: relative;
         }
 
         .case-box:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(179, 156, 125, 0.2);
-            border-color: rgba(179, 156, 125, 0.4);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+            border-color: rgba(212, 175, 55, 0.4);
         }
 
         .case-box img {
@@ -518,7 +416,7 @@
         }
 
         .case-title {
-            color: #b39c7d;
+            color: #D4AF37;
             font-family: 'Playfair Display', serif;
             margin-bottom: 5px;
         }
@@ -526,21 +424,21 @@
         /* Book Appointment Button */
         .appointment-section {
             text-align: center;
-            padding: 60px 0;
-            margin-bottom: 80px;
+            padding: 50px 0;
+            margin-bottom: 60px;
         }
 
         .appointment-btn {
-            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
             color: #121212;
             border: none;
-            padding: 20px 50px;
-            font-size: 1.3rem;
+            padding: 18px 40px;
+            font-size: 1.2rem;
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(179, 156, 125, 0.3);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
             letter-spacing: 1px;
             text-decoration: none;
             display: inline-block;
@@ -548,50 +446,48 @@
 
         .appointment-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(179, 156, 125, 0.5);
-            background: linear-gradient(135deg, #d4b78f, #b39c7d);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(135deg, #FFD700, #D4AF37);
         }
 
         /* Footer */
         footer {
             background: #0a0a0a;
-            padding: 60px 5% 30px;
-            border-top: 1px solid rgba(179, 156, 125, 0.3);
+            padding: 50px 5% 25px;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
         }
 
         .footer-content {
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 40px;
             margin-bottom: 40px;
         }
 
         .footer-logo {
-            flex: 1;
-            min-width: 250px;
+            text-align: center;
         }
 
         .footer-logo h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #b39c7d, #d4b78f);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #D4AF37;
         }
 
         .footer-links {
-            flex: 2;
             display: flex;
-            justify-content: space-around;
             flex-wrap: wrap;
-            gap: 30px;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .link-group {
+            text-align: center;
         }
 
         .link-group h4 {
-            color: #b39c7d;
+            color: #D4AF37;
             margin-bottom: 15px;
             font-size: 1.1rem;
         }
@@ -611,99 +507,92 @@
         }
 
         .link-group a:hover {
-            color: #b39c7d;
+            color: #D4AF37;
         }
 
         .copyright {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 25px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #777;
             font-size: 0.9rem;
         }
 
-        /* Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .intro-section {
-                flex-direction: column;
-            }
-            
-            .hero-section h1 {
-                font-size: 2.8rem;
-            }
-        }
-
+        /* Mobile Responsive */
         @media (max-width: 768px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .logo img {
+                height: 35px;
+            }
+
             nav ul {
                 display: none;
-                position: absolute;
-                top: 100%;
+                position: fixed;
+                top: 80px;
                 left: 0;
                 width: 100%;
                 background: rgba(18, 18, 18, 0.98);
                 flex-direction: column;
                 padding: 20px;
                 box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+                z-index: 999;
             }
-            
+
             nav ul.active {
                 display: flex;
             }
-            
+
             .mobile-menu-btn {
                 display: block;
             }
-            
+
             .hero-section h1 {
-                font-size: 2.2rem;
-            }
-            
-            .section-title {
                 font-size: 2rem;
             }
-            
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .carousel {
+                gap: 15px;
+            }
+
+            .lawyer-card {
+                flex: 0 0 280px;
+            }
+
             .carousel-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 30px;
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 480px) {
             .hero-section h1 {
                 font-size: 1.8rem;
             }
-            
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .lawyer-card {
+                flex: 0 0 260px;
+            }
+
             .appointment-btn {
                 padding: 15px 30px;
                 font-size: 1.1rem;
-            }
-            
-            .footer-links {
-                flex-direction: column;
             }
         }
     </style>
@@ -712,13 +601,7 @@
     <!-- Loading Animation -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-logo">
-            <div class="scales">
-                <div class="scale-stand"></div>
-                <div class="scale-beam"></div>
-                <div class="scale-pan pan-left"></div>
-                <div class="scale-pan pan-right"></div>
-            </div>
-            <div class="logo-text">LLA</div>
+            <img src="logo.png" alt="Linpane Legal Associates Logo" id="mainLogo">
         </div>
     </div>
 
@@ -732,7 +615,6 @@
         <div class="popup-content">
             <p>Welcome to the official website of Linpane Legal Associates, where justice meets excellence. Our firm has been serving clients with dedication and integrity for over three decades.</p>
             <p>We specialize in a wide range of legal services including Criminal Law, Civil Law, Constitutional Law, Family Law, Corporate Law, and more.</p>
-            <p>Our team of experienced advocates is committed to providing personalized legal solutions tailored to your unique needs.</p>
             <p>Browse through our website to learn more about our services, meet our team, and schedule a consultation.</p>
         </div>
     </div>
@@ -740,8 +622,8 @@
     <!-- Header -->
     <header>
         <a href="index.html" class="logo">
-            <i class="fas fa-balance-scale logo-icon"></i>
-            Linpane Legal Associates
+            <img src="logo.png" alt="LLA Logo">
+            <span>Linpane Legal Associates</span>
         </a>
         <button class="mobile-menu-btn" id="mobileMenuBtn">
             <i class="fas fa-bars"></i>
@@ -761,7 +643,7 @@
         <!-- Hero Section -->
         <section class="hero-section fade-in">
             <h1>Justice, Integrity, Excellence</h1>
-            <p>For over 30 years, Linpane Legal Associates has been providing exceptional legal representation with an unwavering commitment to justice and client satisfaction. Our experienced team handles complex cases across multiple legal domains.</p>
+            <p>For over 30 years, Linpane Legal Associates has been providing exceptional legal representation with an unwavering commitment to justice and client satisfaction.</p>
             <a href="appointment.html" class="appointment-btn">Book a Consultation</a>
         </section>
 
@@ -774,8 +656,8 @@
                 </button>
                 <div class="carousel" id="lawyerCarousel">
                     <!-- Lawyer 1 -->
-                    <div class="lawyer-card large fade-in">
-                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. A.V. Linpane" class="lawyer-img">
+                    <div class="lawyer-card fade-in">
+                        <img src="advocate1.jpg" alt="Adv. A.V. Linpane" class="lawyer-img">
                         <div class="lawyer-info">
                             <h3 class="lawyer-name">ADV. A.V. LINPANE</h3>
                             <p class="lawyer-specialization">Senior Advocate specializing in Criminal Law, Civil Law, Constitutional Law</p>
@@ -784,7 +666,7 @@
                     </div>
                     <!-- Lawyer 2 -->
                     <div class="lawyer-card fade-in">
-                        <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. Sandya Linpane" class="lawyer-img">
+                        <img src="advocate2.jpg" alt="Adv. Sandya Linpane" class="lawyer-img">
                         <div class="lawyer-info">
                             <h3 class="lawyer-name">ADV. SANDYA LINPANE</h3>
                             <p class="lawyer-specialization">Family Law, Property Disputes, Women's Rights</p>
@@ -793,20 +675,11 @@
                     </div>
                     <!-- Lawyer 3 -->
                     <div class="lawyer-card fade-in">
-                        <img src="https://images.unsplash.com/photo-1580852300654-03c803a14e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Akshay Linpane" class="lawyer-img">
+                        <img src="advocate3.jpg" alt="Akshay Linpane" class="lawyer-img">
                         <div class="lawyer-info">
                             <h3 class="lawyer-name">AKSHAY LINPANE</h3>
                             <p class="lawyer-specialization">Corporate Law, Contract Disputes, Commercial Litigation</p>
                             <span class="lawyer-experience">10+ Years Experience</span>
-                        </div>
-                    </div>
-                    <!-- Lawyer 4 -->
-                    <div class="lawyer-card fade-in">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sankalp Borkar" class="lawyer-img">
-                        <div class="lawyer-info">
-                            <h3 class="lawyer-name">SANKALP BORKAR</h3>
-                            <p class="lawyer-specialization">Consumer Law, Cyber Law, Intellectual Property</p>
-                            <span class="lawyer-experience">8+ Years Experience</span>
                         </div>
                     </div>
                 </div>
@@ -819,13 +692,12 @@
         <!-- Introduction Section -->
         <section class="intro-section fade-in">
             <div class="intro-img">
-                <img src="https://images.unsplash.com/photo-1589391886085-8b6b0ac72a1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Our Office">
+                <img src="office.jpg" alt="Our Office">
             </div>
             <div class="intro-content">
                 <h2>About Our Firm</h2>
                 <p>Founded in 1990 by Adv. A.V. Linpane, our firm has grown to become one of the most respected legal practices in the region. We combine traditional values with modern legal approaches to deliver outstanding results for our clients.</p>
                 <p>Our office is designed to provide a comfortable and confidential environment for consultations. We understand that legal matters can be stressful, and we strive to make the process as smooth as possible for our clients.</p>
-                <p>With over 1000+ cases successfully resolved and a client satisfaction rate of 98%, we pride ourselves on our commitment to excellence and our track record of success across various legal domains.</p>
             </div>
         </section>
 
@@ -834,31 +706,31 @@
             <h2 class="section-title fade-in">Landmark Cases</h2>
             <div class="cases-grid">
                 <a href="case1.pdf" class="case-box fade-in">
-                    <img src="https://images.unsplash.com/photo-1589391886085-8b6b0ac72a1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Case 1">
+                    <img src="case1.jpg" alt="Case 1">
                     <div class="case-overlay">
                         <h4 class="case-title">State vs. Kumar</h4>
                         <p>Landmark Criminal Law Victory</p>
                     </div>
                 </a>
                 <a href="case2.pdf" class="case-box fade-in">
-                    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Case 2">
+                    <img src="case2.jpg" alt="Case 2">
                     <div class="case-overlay">
                         <h4 class="case-title">Sharma Family Dispute</h4>
                         <p>Complex Family Law Settlement</p>
                     </div>
                 </a>
                 <a href="case3.pdf" class="case-box fade-in">
-                    <img src="https://images.unsplash.com/photo-1580852300654-03c803a14e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Case 3">
+                    <img src="case3.jpg" alt="Case 3">
                     <div class="case-overlay">
                         <h4 class="case-title">TechCorp IPO</h4>
                         <p>Corporate Law Success</p>
                     </div>
                 </a>
                 <a href="case4.pdf" class="case-box fade-in">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Case 4">
+                    <img src="case4.jpg" alt="Case 4">
                     <div class="case-overlay">
-                        <h4 class="case-title">Cyber Fraud Case</h4>
-                        <p>Pioneering Cyber Law Judgment</p>
+                        <h4 class="case-title">Property Rights Case</h4>
+                        <p>Historic Property Rights Victory</p>
                     </div>
                 </a>
             </div>
@@ -867,7 +739,7 @@
         <!-- Appointment Section -->
         <section class="appointment-section fade-in">
             <h2 class="section-title">Ready to Discuss Your Case?</h2>
-            <p style="max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem; color: #b0b0b0;">Schedule a confidential consultation with our legal experts to discuss your legal matters and explore your options.</p>
+            <p style="max-width: 700px; margin: 0 auto 30px; font-size: 1.1rem; color: #d0d0d0;">Schedule a confidential consultation with our legal experts to discuss your legal matters.</p>
             <a href="appointment.html" class="appointment-btn">
                 <i class="fas fa-calendar-alt"></i> Book Appointment Now
             </a>
@@ -879,7 +751,7 @@
         <div class="footer-content">
             <div class="footer-logo">
                 <h3>Linpane Legal Associates</h3>
-                <p style="color: #b0b0b0; line-height: 1.6;">Justice, Integrity, Excellence - Serving clients with dedication for over three decades.</p>
+                <p style="color: #d0d0d0; line-height: 1.6;">Justice, Integrity, Excellence - Serving clients with dedication for over three decades.</p>
             </div>
             <div class="footer-links">
                 <div class="link-group">
@@ -888,15 +760,7 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="team.html">Our Team</a></li>
-                        <li><a href="#top-cases">Top Cases</a></li>
-                    </ul>
-                </div>
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="appointment.html">Book Appointment</a></li>
                     </ul>
                 </div>
                 <div class="link-group">
@@ -910,19 +774,24 @@
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2023 Linpane Legal Associates. All rights reserved.</p>
+            <p>&copy; 2025 Linpane Legal Associates. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Loading Animation
+        // Loading Animation (Show only once per session)
         window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('loadingScreen').style.opacity = '0';
+            if (!sessionStorage.getItem('initialLoad')) {
                 setTimeout(function() {
-                    document.getElementById('loadingScreen').style.display = 'none';
-                }, 500);
-            }, 3000);
+                    document.getElementById('loadingScreen').style.opacity = '0';
+                    setTimeout(function() {
+                        document.getElementById('loadingScreen').style.display = 'none';
+                    }, 500);
+                    sessionStorage.setItem('initialLoad', 'true');
+                }, 2000);
+            } else {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }
         });
 
         // Welcome Popup
@@ -932,7 +801,7 @@
                     document.getElementById('welcomePopup').classList.add('active');
                     document.getElementById('popupOverlay').classList.add('active');
                     sessionStorage.setItem('welcomeShown', 'true');
-                }, 1000);
+                }, 500);
             }
             
             document.getElementById('closePopup').addEventListener('click', function() {
@@ -957,7 +826,7 @@
         const nextBtn = document.getElementById('nextBtn');
         const lawyerCards = document.querySelectorAll('.lawyer-card');
         let currentIndex = 0;
-        const cardWidth = lawyerCards[0].offsetWidth + 30; // Width + gap
+        let cardWidth = lawyerCards[0].offsetWidth + 25;
 
         function updateCarousel() {
             carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
@@ -977,6 +846,41 @@
             }
         });
 
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let endX = 0;
+
+        carousel.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+        });
+
+        carousel.addEventListener('touchend', function(e) {
+            endX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const threshold = 50;
+            const diff = startX - endX;
+
+            if (Math.abs(diff) > threshold) {
+                if (diff > 0 && currentIndex < lawyerCards.length - 1) {
+                    // Swipe left
+                    currentIndex++;
+                } else if (diff < 0 && currentIndex > 0) {
+                    // Swipe right
+                    currentIndex--;
+                }
+                updateCarousel();
+            }
+        }
+
+        // Update card width on resize
+        window.addEventListener('resize', function() {
+            cardWidth = lawyerCards[0].offsetWidth + 25;
+            updateCarousel();
+        });
+
         // Scroll Animations
         const fadeElements = document.querySelectorAll('.fade-in');
 
@@ -993,7 +897,7 @@
 
         window.addEventListener('scroll', checkFade);
         window.addEventListener('resize', checkFade);
-        checkFade(); // Initial check
+        checkFade();
     </script>
 </body>
 </html>
