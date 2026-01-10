@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Team - Linpane Legal Associates</title>
+    <title>Our Team | Linpane Legal Associates</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,7 +15,7 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: #121212;
             color: #e0e0e0;
             overflow-x: hidden;
@@ -26,40 +25,38 @@
         header {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            padding: 20px 5%;
-            background: rgba(18, 18, 18, 0.95);
+            background-color: rgba(30, 30, 30, 0.95);
             backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Open Sans', sans-serif;
             font-size: 1.8rem;
-            font-weight: 600;
-            background: linear-gradient(135deg, #b39c7d, #d4b78f);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-weight: 700;
+            color: #c5a572;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .logo-icon {
-            font-size: 1.5rem;
+        .logo img {
+            width: 40px;
+            height: 40px;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 2rem;
         }
 
         nav a {
@@ -67,373 +64,362 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 1rem;
-            padding: 8px 15px;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
             border-radius: 4px;
-            transition: all 0.3s ease;
-            position: relative;
         }
 
         nav a:hover {
-            color: #b39c7d;
-            background: rgba(179, 156, 125, 0.1);
+            color: #c5a572;
+            background-color: rgba(197, 165, 114, 0.1);
         }
 
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #b39c7d, #d4b78f);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after {
-            width: 80%;
-        }
-
-        .mobile-menu-btn {
+        /* Mobile Menu */
+        .menu-toggle {
             display: none;
-            background: none;
-            border: none;
-            color: #e0e0e0;
-            font-size: 1.5rem;
+            flex-direction: column;
             cursor: pointer;
+            gap: 4px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #c5a572;
+            transition: 0.3s;
         }
 
         /* Main Content */
-        .main-content {
-            margin-top: 100px;
-            padding: 0 5%;
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
             text-align: center;
-            color: #e0e0e0;
-            position: relative;
-            padding-bottom: 15px;
+            margin-bottom: 3rem;
+            color: #c5a572;
+            font-size: 2.5rem;
+            font-weight: 700;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, #b39c7d, #d4b78f);
+        /* Team Profiles */
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        /* Team Grid */
-        .team-grid {
+        .profile-card {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-bottom: 80px;
-        }
-
-        /* Team Member Card */
-        .team-member {
-            background: #1e1e1e;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .team-member:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(179, 156, 125, 0.2);
-            border-color: rgba(179, 156, 125, 0.4);
-        }
-
-        .member-photo {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            border-bottom: 2px solid rgba(179, 156, 125, 0.3);
-        }
-
-        .member-info {
-            padding: 30px;
-        }
-
-        .member-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: #b39c7d;
-            margin-bottom: 10px;
-        }
-
-        .member-title {
-            color: #d4b78f;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-
-        .member-experience {
-            display: inline-block;
-            background: rgba(179, 156, 125, 0.1);
-            color: #d4b78f;
-            padding: 5px 15px;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
             border-radius: 20px;
-            font-size: 0.85rem;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-right: 2px solid #c5a572;
+        }
+
+        .profile-content {
+            padding: 2.5rem 2.5rem 2.5rem 0;
+        }
+
+        .profile-name {
+            color: #c5a572;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .profile-title {
+            color: #aaa;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
             font-weight: 500;
-            margin-bottom: 20px;
         }
 
-        .member-bio {
-            color: #b0b0b0;
-            line-height: 1.6;
-            margin-bottom: 25px;
+        .profile-bio {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 2rem;
         }
 
-        /* Top Cases Button */
-        .cases-btn {
-            background: linear-gradient(135deg, #b39c7d, #d4b78f);
-            color: #121212;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
+        .expertise {
+            margin-bottom: 2rem;
+        }
+
+        .expertise-title {
+            color: #c5a572;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
             font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        }
+
+        .expertise-list {
             display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .expertise-item {
+            background-color: rgba(197, 165, 114, 0.1);
+            color: #c5a572;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(197, 165, 114, 0.3);
+        }
+
+        /* Achievements Panel */
+        .achievements-btn {
+            display: inline-flex;
             align-items: center;
             gap: 10px;
-            margin-top: 15px;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #c5a572 0%, #b89446 100%);
+            color: #121212;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
 
-        .cases-btn:hover {
-            background: linear-gradient(135deg, #d4b78f, #b39c7d);
+        .achievements-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(179, 156, 125, 0.3);
+            box-shadow: 0 10px 20px rgba(197, 165, 114, 0.3);
         }
 
-        /* Cases Panel */
-        .cases-panel {
+        .achievements-panel {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease;
-            background: rgba(30, 30, 30, 0.9);
+            margin-top: 1rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .achievements-panel.active {
+            max-height: 1000px;
+            padding: 1.5rem;
+        }
+
+        .achievements-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .achievement-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
             border-radius: 8px;
-            margin-top: 20px;
+            border-left: 4px solid #c5a572;
         }
 
-        .cases-panel.active {
-            max-height: 500px;
+        .achievement-title {
+            color: #c5a572;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
         }
 
-        .cases-content {
-            padding: 20px;
-        }
-
-        .case-item {
-            padding: 15px;
-            background: rgba(18, 18, 18, 0.5);
-            border-left: 3px solid #b39c7d;
-            margin-bottom: 15px;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .case-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .case-title {
-            color: #b39c7d;
-            margin-bottom: 8px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .case-desc {
-            color: #b0b0b0;
+        .achievement-desc {
+            color: #aaa;
             font-size: 0.9rem;
             line-height: 1.5;
         }
 
-        /* Stats Section */
-        .stats-section {
-            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9), rgba(18, 18, 18, 0.9));
-            padding: 60px 40px;
-            border-radius: 15px;
-            margin-bottom: 80px;
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            text-align: center;
+        /* Track Record */
+        .track-record {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
         }
 
-        .stats-grid {
+        .record-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            gap: 1.5rem;
+            margin-top: 1rem;
         }
 
-        .stat-item {
-            padding: 30px 20px;
-            background: rgba(179, 156, 125, 0.05);
+        .record-item {
+            text-align: center;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
-            border: 1px solid rgba(179, 156, 125, 0.2);
-            transition: all 0.3s ease;
         }
 
-        .stat-item:hover {
-            transform: translateY(-5px);
-            border-color: rgba(179, 156, 125, 0.4);
-            background: rgba(179, 156, 125, 0.1);
-        }
-
-        .stat-number {
-            font-size: 3rem;
+        .record-number {
+            color: #c5a572;
+            font-size: 2rem;
             font-weight: 700;
-            color: #b39c7d;
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
         }
 
-        .stat-label {
-            color: #b0b0b0;
-            font-size: 1.1rem;
+        .record-label {
+            color: #aaa;
+            font-size: 0.9rem;
         }
 
         /* Footer */
         footer {
-            background: #0a0a0a;
-            padding: 60px 5% 30px;
-            border-top: 1px solid rgba(179, 156, 125, 0.3);
+            background-color: #1a1a1a;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid #333;
         }
 
         .footer-content {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-logo {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .footer-logo h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #b39c7d, #d4b78f);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .footer-links {
-            flex: 2;
             display: flex;
-            justify-content: space-around;
+            gap: 3rem;
             flex-wrap: wrap;
-            gap: 30px;
         }
 
-        .link-group h4 {
-            color: #b39c7d;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .link-group ul {
-            list-style: none;
-        }
-
-        .link-group li {
-            margin-bottom: 10px;
-        }
-
-        .link-group a {
-            color: #b0b0b0;
+        .footer-links a {
+            color: #aaa;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
-        .link-group a:hover {
-            color: #b39c7d;
+        .footer-links a:hover {
+            color: #c5a572;
         }
 
         .copyright {
+            margin-top: 2rem;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #777;
             font-size: 0.9rem;
-        }
-
-        /* Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            width: 100%;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
         }
 
         /* Responsive Design */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(18, 18, 18, 0.98);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            }
-            
-            nav ul.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .member-photo {
-                height: 300px;
+        @media (max-width: 1024px) {
+            .profile-card {
+                grid-template-columns: 250px 1fr;
+                gap: 2rem;
             }
         }
 
-        @media (max-width: 576px) {
-            .section-title {
-                font-size: 1.8rem;
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
             }
-            
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-links {
+
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: rgba(30, 30, 30, 0.98);
                 flex-direction: column;
+                align-items: center;
+                padding-top: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            nav ul.active {
+                left: 0;
+            }
+
+            .section {
+                padding: 2rem 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .profile-card {
+                grid-template-columns: 1fr;
+                gap: 0;
+                margin-bottom: 3rem;
+            }
+
+            .profile-img {
+                height: 300px;
+                border-right: none;
+                border-bottom: 2px solid #c5a572;
+            }
+
+            .profile-content {
+                padding: 2rem;
+            }
+
+            .team-container {
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 1rem;
+            }
+
+            .profile-content {
+                padding: 1.5rem;
+            }
+
+            .profile-name {
+                font-size: 1.6rem;
+            }
+
+            .expertise-list {
+                gap: 0.5rem;
+            }
+
+            .expertise-item {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .record-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -442,14 +428,18 @@
     <!-- Header -->
     <header>
         <a href="index.html" class="logo">
-            <i class="fas fa-balance-scale logo-icon"></i>
-            Linpane Legal Associates
+            <img src="https://cdn-icons-png.flaticon.com/512/1995/1995515.png" alt="LLA Logo">
+            <span>Linpane Legal Associates</span>
         </a>
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
+        
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        
         <nav>
-            <ul id="navMenu">
+            <ul id="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="team.html">Our Team</a></li>
@@ -459,291 +449,281 @@
     </header>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <h1 class="section-title fade-in">Meet Our Legal Experts</h1>
-        
-        <!-- Team Grid -->
-        <div class="team-grid">
-            <!-- Lawyer 1 -->
-            <div class="team-member fade-in">
-                <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. A.V. Linpane" class="member-photo">
-                <div class="member-info">
-                    <h2 class="member-name">ADV. A.V. LINPANE</h2>
-                    <p class="member-title">Senior Advocate | Founder</p>
-                    <span class="member-experience">30+ Years Experience</span>
-                    <p class="member-bio">
-                        A.V. Linpane is the founder and senior partner of Linpane Legal Associates. With over three decades of experience in criminal, civil, and constitutional law, he has represented clients in numerous high-profile cases. He is known for his meticulous case preparation and persuasive courtroom presence.
-                    </p>
-                    <p class="member-bio">
-                        Education: LL.M. from Harvard Law School, Gold Medalist in LL.B. from National Law School.
-                    </p>
-                    
-                    <button class="cases-btn" data-member="1">
-                        <i class="fas fa-gavel"></i> Top Cases & Achievements
-                    </button>
-                    
-                    <div class="cases-panel" id="casesPanel1">
-                        <div class="cases-content">
-                            <div class="case-item">
-                                <h4 class="case-title">State vs. Kumar (2020)</h4>
-                                <p class="case-desc">Successfully defended client in a high-profile murder case, resulting in acquittal based on lack of evidence. Set precedent for evidence handling in criminal cases.</p>
+    <main>
+        <section class="section" id="team">
+            <h2 class="section-title">Meet Our Legal Team</h2>
+            <div class="team-container">
+                <!-- Lawyer 1 -->
+                <div class="profile-card">
+                    <div class="profile-image">
+                        <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="ADV. A.V. Linpane" class="profile-img">
+                    </div>
+                    <div class="profile-content">
+                        <h3 class="profile-name">ADV. A.V. Linpane</h3>
+                        <p class="profile-title">Senior Advocate & Founding Partner</p>
+                        <p class="profile-bio">With over 30 years of extensive legal practice, Adv. A.V. Linpane is a distinguished figure in the Indian legal fraternity. He has argued numerous landmark cases before the Supreme Court and various High Courts, earning recognition for his profound understanding of constitutional and criminal law.</p>
+                        
+                        <div class="expertise">
+                            <h4 class="expertise-title">Areas of Expertise</h4>
+                            <div class="expertise-list">
+                                <span class="expertise-item">Criminal Law</span>
+                                <span class="expertise-item">Constitutional Law</span>
+                                <span class="expertise-item">Civil Litigation</span>
+                                <span class="expertise-item">Human Rights</span>
+                                <span class="expertise-item">Administrative Law</span>
                             </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Constitutional Challenge (2018)</h4>
-                                <p class="case-desc">Led the legal team that successfully challenged a controversial state law before the Supreme Court, protecting citizens' fundamental rights.</p>
+                        </div>
+
+                        <button class="achievements-btn" onclick="toggleAchievements('achievements1')">
+                            Top Achievements
+                        </button>
+
+                        <div class="achievements-panel" id="achievements1">
+                            <div class="achievements-content">
+                                <div class="achievement-item">
+                                    <h5 class="achievement-title">Landmark Constitutional Case</h5>
+                                    <p class="achievement-desc">Successfully argued a constitutional bench matter establishing new precedent for individual rights</p>
+                                </div>
+                                <div class="achievement-item">
+                                    <h5 class="achievement-title">High-Profile Criminal Defense</h5>
+                                    <p class="achievement-desc">Lead counsel in a nationally recognized criminal case resulting in acquittal</p>
+                                </div>
+                                <div class="achievement-item">
+                                    <h5 class="achievement-title">International Recognition</h5>
+                                    <p class="achievement-desc">Awarded "Legal Luminary of the Year" by International Bar Association</p>
+                                </div>
                             </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Civil Rights Class Action (2016)</h4>
-                                <p class="case-desc">Represented 500+ plaintiffs in a class-action lawsuit resulting in $50M settlement and policy reforms.</p>
+
+                            <div class="track-record">
+                                <h4 class="expertise-title">Legal Certification & Recognition</h4>
+                                <div class="record-grid">
+                                    <div class="record-item">
+                                        <div class="record-number">30+</div>
+                                        <div class="record-label">Years Experience</div>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-number">500+</div>
+                                        <div class="record-label">Cases Handled</div>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-number">95%</div>
+                                        <div class="record-label">Success Rate</div>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-number">12</div>
+                                        <div class="record-label">Awards</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Awards & Recognition</h4>
-                                <p class="case-desc">• National Legal Excellence Award (2021)<br>• Best Criminal Lawyer of the Year (2019)<br>• Lifetime Achievement Award from State Bar Council (2018)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lawyer 2 -->
+                <div class="profile-card">
+                    <div class="profile-image">
+                        <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="ADV. Sandya Linpane" class="profile-img">
+                    </div>
+                    <div class="profile-content">
+                        <h3 class="profile-name">ADV. Sandya Linpane</h3>
+                        <p class="profile-title">Partner - Family & Property Law</p>
+                        <p class="profile-bio">Adv. Sandya Linpane brings over 20 years of specialized experience in family law and property disputes. Known for her compassionate yet strategic approach, she has helped countless families navigate complex legal matters while protecting their rights and interests.</p>
+                        
+                        <div class="expertise">
+                            <h4 class="expertise-title">Areas of Expertise</h4>
+                            <div class="expertise-list">
+                                <span class="expertise-item">Family Law</span>
+                                <span class="expertise-item">Property Disputes</span>
+                                <span class="expertise-item">Women's Rights</span>
+                                <span class="expertise-item">Divorce & Alimony</span>
+                                <span class="expertise-item">Child Custody</span>
+                            </div>
+                        </div>
+
+                        <button class="achievements-btn" onclick="toggleAchievements('achievements2')">
+                            Top Achievements
+                        </button>
+
+                        <div class="achievements-panel" id="achievements2">
+                            <div class="achievements-content">
+                                <div class="achievement-item">
+                                    <h5 class="achievement-title">High-Value Property Settlement</h5>
+                                    <p class="achievement-desc">Successfully resolved a ₹50 crore property dispute through mediation</p>
+                                </div>
+                                <div class="achievement-item">
+                                    <h5 class="achievement-title">Landmark Custody Case</h5>
+                                    <p class="achievement-desc">Established precedent in international child custody jurisdiction</p>
+                                </div>
+                                <div class="achievement-item">
+                                    <h5 class="achievement-title">Women's Rights Advocacy</h5>
+                                    <p class="achievement-desc">Recognized by National Women's Commission for legal advocacy</p>
+                                </div>
+                            </div>
+
+                            <div class="track-record">
+                                <h4 class="expertise-title">Legal Certification & Recognition</h4>
+                                <div class="record-grid">
+                                    <div class="record-item">
+                                        <div class="record-number">20+</div>
+                                        <div class="record-label">Years Experience</div>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-number">300+</div>
+                                        <div class="record-label">Family Cases</div>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-number">90%</div>
+                                        <div class="record-label">Settlement Rate</div>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-number">8</div>
+                                        <div class="record-label">Awards</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lawyer 3 -->
+                <div class="profile-card">
+                    <div class="profile-image">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Akshay Linpane" class="profile-img">
+                    </div>
+                    <div class="profile-content">
+                        <h3 class="profile-name">Akshay Linpane</h3>
+                        <p class="profile-title">Corporate Law Specialist</p>
+                        <p class="profile-bio">Akshay Linpane specializes in corporate law and commercial litigation with over 10 years of experience. His expertise includes M&A, contract disputes, and corporate governance. He combines legal acumen with business insight to provide strategic solutions to corporate clients.</p>
+                        
+                        <div class="expertise">
+                            <h4 class="expertise-title">Areas of Expertise</h4>
+                            <div class="expertise-list">
+                                <span class="expertise-item">Corporate Law</span>
+                                <span class="expertise-item">Contract Disputes</span>
+                                <span class="expertise-item">Commercial Litigation</span>
+                                <span class="expertise-item">Mergers & Acquisitions</span>
+                                <span class="expertise-item">Intellectual Property</span>
+                            </div>
+                        </div>
+
+                        <button class="achievements-btn" onclick="toggleAchievements('achievements3')">
+                            Top Achievements
+                        </button>
+
+                        <div class="achievements-panel" id="achievements3">
+                            <div class="achievements-content">
+                                <div class="achievement-item">
+                                    <h5 class="achievement-title">Major M&A Transaction</h5>
+                                    <p class="achievement-desc">Led legal team in ₹200 crore merger between major corporations</p>
+                                </div>
+                                <div class="achievement-item">
+                                    <h5 class="achievement-title">IP Rights Protection</h5>
+                                    <p class="achievement-desc">Successfully defended patent infringement case for tech startup</p>
+                                </div>
+                                <div class="achievement-item">
+                                    <h5 class="achievement-title">International Arbitration</h5>
+                                    <p class="achievement-desc">Represented client in international commercial arbitration</p>
+                                </div>
+                            </div>
+
+                            <div class="track-record">
+                                <h4 class="expertise-title">Legal Certification & Recognition</h4>
+                                <div class="record-grid">
+                                    <div class="record-item">
+                                        <div class="record-number">10+</div>
+                                        <div class="record-label">Years Experience</div>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-number">150+</div>
+                                        <div class="record-label">Corporate Clients</div>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-number">92%</div>
+                                        <div class="record-label">Success Rate</div>
+                                    </div>
+                                    <div class="record-item">
+                                        <div class="record-number">5</div>
+                                        <div class="record-label">Awards</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Lawyer 2 -->
-            <div class="team-member fade-in">
-                <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Adv. Sandya Linpane" class="member-photo">
-                <div class="member-info">
-                    <h2 class="member-name">ADV. SANDYA LINPANE</h2>
-                    <p class="member-title">Family Law Specialist | Partner</p>
-                    <span class="member-experience">20+ Years Experience</span>
-                    <p class="member-bio">
-                        Sandya Linpane specializes in family law, property disputes, and women's rights. Her compassionate approach combined with legal expertise has helped hundreds of families navigate difficult transitions. She is a certified mediator and often serves as a court-appointed guardian ad litem.
-                    </p>
-                    <p class="member-bio">
-                        Education: LL.B. from Mumbai University, Certified Family Law Mediator, Women's Rights Advocate.
-                    </p>
-                    
-                    <button class="cases-btn" data-member="2">
-                        <i class="fas fa-gavel"></i> Top Cases & Achievements
-                    </button>
-                    
-                    <div class="cases-panel" id="casesPanel2">
-                        <div class="cases-content">
-                            <div class="case-item">
-                                <h4 class="case-title">Sharma Family Settlement (2022)</h4>
-                                <p class="case-desc">Successfully mediated a complex family dispute involving ₹200 crore in assets, achieving settlement without litigation.</p>
-                            </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Women's Property Rights Case (2020)</h4>
-                                <p class="case-desc">Won landmark case establishing daughters' equal rights in ancestral property, affecting thousands of families statewide.</p>
-                            </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Child Custody Protection (2019)</h4>
-                                <p class="case-desc">Secured custody rights for mother while establishing progressive visitation guidelines benefiting the child's wellbeing.</p>
-                            </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Awards & Recognition</h4>
-                                <p class="case-desc">• Women Empowerment Award (2022)<br>• Best Family Law Advocate (2020)<br>• Legal Aid Champion Award (2018)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Lawyer 3 -->
-            <div class="team-member fade-in">
-                <img src="https://images.unsplash.com/photo-1580852300654-03c803a14e24?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Akshay Linpane" class="member-photo">
-                <div class="member-info">
-                    <h2 class="member-name">AKSHAY LINPANE</h2>
-                    <p class="member-title">Corporate Law Expert | Partner</p>
-                    <span class="member-experience">10+ Years Experience</span>
-                    <p class="member-bio">
-                        Akshay Linpane heads the corporate law division, specializing in contract disputes, commercial litigation, and M&A transactions. His business acumen combined with legal expertise makes him invaluable to corporate clients. He has successfully handled transactions worth over ₹5000 crore.
-                    </p>
-                    <p class="member-bio">
-                        Education: MBA (Finance) from IIM Ahmedabad, LL.B. from Symbiosis Law School, Certified Mergers & Acquisitions Specialist.
-                    </p>
-                    
-                    <button class="cases-btn" data-member="3">
-                        <i class="fas fa-gavel"></i> Top Cases & Achievements
-                    </button>
-                    
-                    <div class="cases-panel" id="casesPanel3">
-                        <div class="cases-content">
-                            <div class="case-item">
-                                <h4 class="case-title">TechCorp IPO Representation (2023)</h4>
-                                <p class="case-desc">Led legal team for ₹1500 crore IPO, ensuring regulatory compliance and successful market listing.</p>
-                            </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Mega Merger Deal (2021)</h4>
-                                <p class="case-desc">Successfully negotiated and structured ₹3200 crore merger between two pharmaceutical giants, creating market leader.</p>
-                            </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Contract Fraud Litigation (2019)</h4>
-                                <p class="case-desc">Won ₹450 crore settlement for client in complex international contract dispute, setting precedent for cross-border enforcement.</p>
-                            </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Awards & Recognition</h4>
-                                <p class="case-desc">• Young Corporate Lawyer of the Year (2022)<br>• Deal Maker Award (2020)<br>• Legal Innovation Award (2019)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Lawyer 4 -->
-            <div class="team-member fade-in">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sankalp Borkar" class="member-photo">
-                <div class="member-info">
-                    <h2 class="member-name">SANKALP BORKAR</h2>
-                    <p class="member-title">Cyber Law Specialist | Associate Partner</p>
-                    <span class="member-experience">8+ Years Experience</span>
-                    <p class="member-bio">
-                        Sankalp Borkar is a leading expert in cyber law, intellectual property, and consumer protection. His tech-savvy approach helps clients navigate the complex intersection of law and technology. He has successfully handled over 200 cybercrime cases and helped draft important cybersecurity legislation.
-                    </p>
-                    <p class="member-bio">
-                        Education: B.Tech in Computer Science from IIT Bombay, LL.B. from NALSAR, Certified Ethical Hacker.
-                    </p>
-                    
-                    <button class="cases-btn" data-member="4">
-                        <i class="fas fa-gavel"></i> Top Cases & Achievements
-                    </button>
-                    
-                    <div class="cases-panel" id="casesPanel4">
-                        <div class="cases-content">
-                            <div class="case-item">
-                                <h4 class="case-title">Data Breach Class Action (2022)</h4>
-                                <p class="case-desc">Successfully represented 1.2 million users in data breach lawsuit, securing ₹85 crore settlement and improved security measures.</p>
-                            </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Cyber Fraud Investigation (2021)</h4>
-                                <p class="case-desc">Led investigation uncovering ₹200 crore cyber fraud ring, resulting in arrests and asset recovery for victims.</p>
-                            </div>
-                            <div class="case-item">
-                                <h4 class="case-title">IP Rights Protection (2020)</h4>
-                                <p class="case-desc">Successfully defended tech startup against patent infringement claims, preserving company valuation of ₹500 crore.</p>
-                            </div>
-                            <div class="case-item">
-                                <h4 class="case-title">Awards & Recognition</h4>
-                                <p class="case-desc">• Cyber Law Pioneer Award (2022)<br>• Technology & Law Excellence Award (2021)<br>• Young Legal Innovator of the Year (2020)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Stats Section -->
-        <div class="stats-section fade-in">
-            <h2 class="section-title" style="font-size: 2rem; margin-bottom: 20px;">Our Track Record</h2>
-            <p style="max-width: 800px; margin: 0 auto 40px; color: #b0b0b0; font-size: 1.1rem;">
-                Decades of combined experience delivering exceptional results for our clients across all legal domains.
-            </p>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">68+</div>
-                    <div class="stat-label">Years Combined Experience</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">1200+</div>
-                    <div class="stat-label">Cases Successfully Handled</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">98%</div>
-                    <div class="stat-label">Client Satisfaction Rate</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Legal Awards & Recognition</div>
-                </div>
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">
-                <h3>Linpane Legal Associates</h3>
-                <p style="color: #b0b0b0; line-height: 1.6;">Justice, Integrity, Excellence - Serving clients with dedication for over three decades.</p>
-            </div>
             <div class="footer-links">
-                <div class="link-group">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="team.html">Our Team</a></li>
-                        <li><a href="#top-cases">Top Cases</a></li>
-                    </ul>
-                </div>
-                <div class="link-group">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="disclaimer.html">Disclaimer</a></li>
-                    </ul>
-                </div>
-                <div class="link-group">
-                    <h4>Contact Info</h4>
-                    <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> 123 Justice Street, Legal District</li>
-                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
-                        <li><i class="fas fa-envelope"></i> info@linpanelegal.com</li>
-                    </ul>
-                </div>
+                <a href="index.html">Home</a>
+                <a href="contact.html">Contact</a>
+                <a href="team.html">Our Team</a>
+                <a href="#cases">Top Cases</a>
+                <a href="privacy.html">Privacy Policy</a>
             </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2023 Linpane Legal Associates. All rights reserved.</p>
+            <div class="copyright">
+                <p>&copy; 2025 Linpane Legal Associates. All rights reserved.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem;">Justice • Integrity • Excellence</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            document.getElementById('navMenu').classList.toggle('active');
+        // Mobile Menu
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenu.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
         });
 
-        // Cases Panel Toggle
-        document.querySelectorAll('.cases-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const memberId = this.getAttribute('data-member');
-                const panel = document.getElementById(`casesPanel${memberId}`);
-                
-                // Close all other panels
-                document.querySelectorAll('.cases-panel').forEach(p => {
-                    if (p.id !== `casesPanel${memberId}`) {
-                        p.classList.remove('active');
-                    }
-                });
-                
-                // Toggle current panel
-                panel.classList.toggle('active');
-                
-                // Update button text
-                if (panel.classList.contains('active')) {
-                    this.innerHTML = '<i class="fas fa-times"></i> Close Cases Panel';
-                } else {
-                    this.innerHTML = '<i class="fas fa-gavel"></i> Top Cases & Achievements';
-                }
+        // Toggle Achievements Panel
+        function toggleAchievements(panelId) {
+            const panel = document.getElementById(panelId);
+            const isActive = panel.classList.contains('active');
+            
+            // Close all other panels
+            document.querySelectorAll('.achievements-panel').forEach(p => {
+                p.classList.remove('active');
             });
-        });
-
-        // Scroll Animations
-        const fadeElements = document.querySelectorAll('.fade-in');
-
-        function checkFade() {
-            fadeElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementTop < windowHeight - 100) {
-                    element.classList.add('visible');
-                }
-            });
+            
+            // Toggle current panel
+            if (!isActive) {
+                panel.classList.add('active');
+            }
         }
 
-        window.addEventListener('scroll', checkFade);
-        window.addEventListener('resize', checkFade);
-        checkFade(); // Initial check
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Initialize sections as visible on load
+        setTimeout(() => {
+            document.querySelectorAll('.section').forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    section.classList.add('visible');
+                }
+            });
+        }, 100);
     </script>
 </body>
 </html>
