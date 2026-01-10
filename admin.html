@@ -9,33 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Firebase SDK -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-        import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-database.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDrLT59xzR-40CfrMpUzwwo02i1-71ezXU",
-            authDomain: "test2-25512.firebaseapp.com",
-            databaseURL: "https://test2-25512-default-rtdb.firebaseio.com",
-            projectId: "test2-25512",
-            storageBucket: "test2-25512.firebasestorage.app",
-            messagingSenderId: "53110265530",
-            appId: "1:53110265530:web:1cfac2ef1c9060b141d483"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        
-        // Make Firebase available globally
-        window.firebaseDatabase = database;
-        window.firebaseRef = ref;
-        window.firebaseOnValue = onValue;
-        window.firebaseSet = set;
-        window.firebaseRemove = remove;
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.7.0/firebase-database-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -46,7 +21,8 @@
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: #121212;
-            color: #f0f0f0;
+            color: #e0e0e0;
+            overflow-x: hidden;
             min-height: 100vh;
         }
 
@@ -57,35 +33,40 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(18, 18, 18, 0.98);
+            background: rgba(18, 18, 18, 0.95);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 2000;
+            transition: opacity 0.5s ease;
         }
 
         .login-container {
             background: #1e1e1e;
-            padding: 40px;
+            padding: 50px;
             border-radius: 15px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            border: 2px solid #D4AF37;
-            max-width: 400px;
+            border: 2px solid rgba(179, 156, 125, 0.3);
+            max-width: 450px;
             width: 90%;
             text-align: center;
         }
 
         .login-logo {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 30px;
-            color: #D4AF37;
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .login-form {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 25px;
         }
 
         .input-group {
@@ -95,27 +76,34 @@
         .input-group label {
             display: block;
             margin-bottom: 8px;
-            color: #d0d0d0;
+            color: #b0b0b0;
             font-weight: 500;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px;
-            background: #2a2a2a;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(179, 156, 125, 0.3);
             border-radius: 8px;
-            color: #f0f0f0;
+            color: #e0e0e0;
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #b39c7d;
+            box-shadow: 0 0 0 2px rgba(179, 156, 125, 0.2);
         }
 
         .login-btn {
-            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
             color: #121212;
             border: none;
-            padding: 12px;
-            font-size: 1rem;
+            padding: 15px;
+            font-size: 1.1rem;
             font-weight: 600;
             border-radius: 8px;
             cursor: pointer;
@@ -124,8 +112,9 @@
         }
 
         .login-btn:hover {
-            background: linear-gradient(135deg, #FFD700, #D4AF37);
+            background: linear-gradient(135deg, #d4b78f, #b39c7d);
             transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(179, 156, 125, 0.3);
         }
 
         .login-error {
@@ -133,6 +122,10 @@
             margin-top: 10px;
             font-size: 0.9rem;
             display: none;
+        }
+
+        .login-error.show {
+            display: block;
         }
 
         /* Dashboard */
@@ -145,78 +138,202 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             padding-bottom: 20px;
-            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 1px solid rgba(179, 156, 125, 0.3);
         }
 
         .dashboard-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: #D4AF37;
+            font-size: 2.2rem;
+            color: #b39c7d;
         }
 
         .logout-btn {
             background: rgba(255, 107, 107, 0.1);
             color: #ff6b6b;
             border: 1px solid rgba(255, 107, 107, 0.3);
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .logout-btn:hover {
             background: rgba(255, 107, 107, 0.2);
+            transform: translateY(-2px);
         }
 
-        /* Stats Cards */
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        /* Admin Controls */
+        .admin-controls {
+            display: flex;
             gap: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
-        .stat-card {
+        .control-btn {
+            background: rgba(179, 156, 125, 0.1);
+            color: #b39c7d;
+            border: 1px solid rgba(179, 156, 125, 0.3);
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .control-btn:hover {
+            background: rgba(179, 156, 125, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(179, 156, 125, 0.2);
+        }
+
+        /* Popup Modal */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background: #1e1e1e;
-            padding: 25px;
-            border-radius: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(179, 156, 125, 0.3);
+            display: none;
         }
 
-        .stat-icon {
-            font-size: 2rem;
-            color: #D4AF37;
-            margin-bottom: 10px;
+        .modal.active {
+            display: block;
+            animation: fadeInUp 0.3s ease;
         }
 
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #f0f0f0;
-            margin-bottom: 5px;
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
-        .stat-label {
-            color: #b0b0b0;
-            font-size: 0.9rem;
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            color: #b39c7d;
+            font-size: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: #b39c7d;
+        }
+
+        .modal-content {
+            margin-bottom: 25px;
+        }
+
+        .modal-content textarea {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(179, 156, 125, 0.3);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn.save {
+            background: linear-gradient(135deg, #b39c7d, #d4b78f);
+            color: #121212;
+        }
+
+        .modal-btn.cancel {
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            display: none;
+        }
+
+        .modal-overlay.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
         }
 
         /* Appointments Table */
         .appointments-section {
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
         .section-title {
             font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #f0f0f0;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #e0e0e0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+        }
+
+        .section-title i {
+            color: #b39c7d;
         }
 
         .appointments-table {
@@ -224,34 +341,45 @@
             background: #1e1e1e;
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(179, 156, 125, 0.2);
         }
 
         .table-header {
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr 0.8fr 0.8fr;
-            background: rgba(212, 175, 55, 0.1);
-            padding: 15px;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.5fr;
+            background: rgba(179, 156, 125, 0.1);
+            padding: 20px;
             font-weight: 600;
-            color: #D4AF37;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            color: #b39c7d;
+            border-bottom: 1px solid rgba(179, 156, 125, 0.2);
         }
 
         .table-row {
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr 0.8fr 0.8fr;
-            padding: 15px;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr 0.5fr;
+            padding: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .table-row.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .table-row:hover {
-            background: rgba(212, 175, 55, 0.05);
+            background: rgba(179, 156, 125, 0.05);
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
         }
 
         .status-badge {
             display: inline-block;
-            padding: 4px 12px;
+            padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
@@ -275,64 +403,103 @@
         .action-btn {
             background: none;
             border: none;
-            color: #D4AF37;
+            color: #b39c7d;
             cursor: pointer;
-            font-size: 1rem;
-            margin: 0 5px;
+            font-size: 1.1rem;
             transition: color 0.3s;
         }
 
         .action-btn:hover {
-            color: #FFD700;
+            color: #d4b78f;
+        }
+
+        /* Stats Cards */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(179, 156, 125, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(179, 156, 125, 0.4);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: #b39c7d;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #b0b0b0;
+            font-size: 1rem;
         }
 
         /* No Data Message */
         .no-data {
             text-align: center;
-            padding: 40px;
+            padding: 50px;
             color: #777;
+            font-size: 1.1rem;
         }
 
-        .no-data i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: #777;
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #4CAF50;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            z-index: 1000;
-            animation: slideInUp 0.3s ease;
-        }
-
-        .toast.error {
-            background: #f44336;
-        }
-
-        @keyframes slideInUp {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
+        /* Responsive Design */
+        @media (max-width: 1200px) {
             .table-header,
             .table-row {
-                grid-template-columns: 1.2fr 0.8fr 0.8fr 0.8fr 0.6fr 0.8fr;
+                grid-template-columns: 1.5fr 1fr 1fr 0.8fr 0.8fr 0.5fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .table-header {
+                display: none;
+            }
+            
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin-bottom: 20px;
+                padding: 25px;
+                border: 1px solid rgba(179, 156, 125, 0.2);
+                border-radius: 10px;
+            }
+            
+            .table-cell {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            
+            .table-cell:last-child {
+                border-bottom: none;
+            }
+            
+            .table-cell::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #b39c7d;
+                margin-right: 15px;
             }
         }
 
@@ -340,47 +507,38 @@
             .login-container {
                 padding: 30px 20px;
             }
-
+            
             .dashboard {
-                padding: 15px 3%;
+                padding: 20px 3%;
             }
-
-            .table-header {
-                display: none;
+            
+            .admin-controls {
+                flex-direction: column;
             }
-
-            .table-row {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                margin-bottom: 15px;
-                padding: 20px;
-                border: 1px solid rgba(212, 175, 55, 0.2);
-                border-radius: 10px;
-            }
-
-            .cell-label {
-                font-weight: 600;
-                color: #D4AF37;
-                margin-right: 10px;
-            }
-
-            .action-buttons {
-                display: flex;
+            
+            .control-btn {
+                width: 100%;
                 justify-content: center;
-                gap: 10px;
-                margin-top: 10px;
             }
-        }
-
-        @media (max-width: 480px) {
+            
             .stats-cards {
                 grid-template-columns: 1fr;
             }
+        }
 
+        @media (max-width: 576px) {
             .dashboard-header {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
                 text-align: center;
+            }
+            
+            .modal {
+                padding: 30px 20px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
             }
         }
     </style>
@@ -390,24 +548,72 @@
     <div class="login-screen" id="loginScreen">
         <div class="login-container">
             <div class="login-logo">
-                <i class="fas fa-shield-alt"></i> Admin Panel
+                <i class="fas fa-balance-scale"></i> LLA Admin
             </div>
             <form class="login-form" id="loginForm">
                 <div class="input-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" required placeholder="Enter username">
+                    <input type="text" id="username" value="admin" required>
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" required placeholder="Enter password">
+                    <input type="password" id="password" value="pass123" required>
                 </div>
                 <div class="login-error" id="loginError">
                     Invalid username or password!
                 </div>
                 <button type="submit" class="login-btn">
-                    <i class="fas fa-sign-in-alt"></i> Login
+                    <i class="fas fa-sign-in-alt"></i> Login to Dashboard
                 </button>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Notes Modal -->
+    <div class="modal" id="notesModal">
+        <div class="modal-header">
+            <h3 class="modal-title"><i class="fas fa-sticky-note"></i> Important Notes</h3>
+            <button class="modal-close" id="closeNotesModal">&times;</button>
+        </div>
+        <div class="modal-content">
+            <textarea id="notesText" placeholder="Enter important notes here..."></textarea>
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn cancel" id="cancelNotes">Cancel</button>
+            <button class="modal-btn save" id="saveNotes">Save Notes</button>
+        </div>
+    </div>
+
+    <!-- Routine Modal -->
+    <div class="modal" id="routineModal">
+        <div class="modal-header">
+            <h3 class="modal-title"><i class="fas fa-calendar-alt"></i> Daily Routine</h3>
+            <button class="modal-close" id="closeRoutineModal">&times;</button>
+        </div>
+        <div class="modal-content">
+            <textarea id="routineText" placeholder="Enter daily routine here..."></textarea>
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn cancel" id="cancelRoutine">Cancel</button>
+            <button class="modal-btn save" id="saveRoutine">Save Routine</button>
+        </div>
+    </div>
+
+    <!-- Hearing Dates Modal -->
+    <div class="modal" id="hearingModal">
+        <div class="modal-header">
+            <h3 class="modal-title"><i class="fas fa-gavel"></i> Hearing Dates</h3>
+            <button class="modal-close" id="closeHearingModal">&times;</button>
+        </div>
+        <div class="modal-content">
+            <textarea id="hearingText" placeholder="Enter hearing dates and details here..."></textarea>
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn cancel" id="cancelHearing">Cancel</button>
+            <button class="modal-btn save" id="saveHearing">Save Hearing Dates</button>
         </div>
     </div>
 
@@ -418,6 +624,19 @@
             <h1 class="dashboard-title">Admin Dashboard</h1>
             <button class="logout-btn" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+
+        <!-- Admin Controls -->
+        <div class="admin-controls">
+            <button class="control-btn" id="notesBtn">
+                <i class="fas fa-sticky-note"></i> Important Notes
+            </button>
+            <button class="control-btn" id="routineBtn">
+                <i class="fas fa-calendar-alt"></i> Daily Routine
+            </button>
+            <button class="control-btn" id="hearingBtn">
+                <i class="fas fa-gavel"></i> Hearing Dates
             </button>
         </div>
 
@@ -448,12 +667,12 @@
         <!-- Appointments Section -->
         <div class="appointments-section">
             <h2 class="section-title">
-                <i class="fas fa-list-alt"></i> Appointment Records
+                <i class="fas fa-list-alt"></i> Recent Appointments
             </h2>
             
             <div class="appointments-table">
                 <div class="table-header">
-                    <div>Client Details</div>
+                    <div>Client & Case Details</div>
                     <div>Contact</div>
                     <div>Date & Time</div>
                     <div>Case Type</div>
@@ -468,239 +687,346 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
-            const loginScreen = document.getElementById('loginScreen');
-            const dashboard = document.getElementById('dashboard');
-            const loginForm = document.getElementById('loginForm');
-            const loginError = document.getElementById('loginError');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const appointmentsList = document.getElementById('appointmentsList');
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCBC6qPxcbq4MlbxAxgfIBa0PsyNsFe7PI",
+            authDomain: "test1-9a62b.firebaseapp.com",
+            databaseURL: "https://test1-9a62b-default-rtdb.firebaseio.com",
+            projectId: "test1-9a62b",
+            storageBucket: "test1-9a62b.firebasestorage.app",
+            messagingSenderId: "960282316150",
+            appId: "1:960282316150:web:d8cc1b7a8868313b4e7e57",
+            measurementId: "G-H84YVV6W1C"
+        };
 
-            // ========== LOGIN LOGIC ==========
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const username = document.getElementById('username').value.trim();
-                const password = document.getElementById('password').value;
-                
-                // Credentials
-                const validUsername = "ashu999";
-                const validPassword = "password111";
-                
-                if (username === validUsername && password === validPassword) {
-                    // Successful login
-                    loginError.style.display = 'none';
-                    
-                    // Hide login screen
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // DOM Elements
+        const loginScreen = document.getElementById('loginScreen');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const loginError = document.getElementById('loginError');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // Modal Elements
+        const modalOverlay = document.getElementById('modalOverlay');
+        const notesModal = document.getElementById('notesModal');
+        const routineModal = document.getElementById('routineModal');
+        const hearingModal = document.getElementById('hearingModal');
+
+        // Login Logic
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple authentication
+            if (username === 'admin' && password === 'pass123') {
+                // Hide login screen
+                loginScreen.style.opacity = '0';
+                setTimeout(() => {
                     loginScreen.style.display = 'none';
                     dashboard.style.display = 'block';
-                    
-                    // Load appointments
-                    loadAppointments();
-                    
-                    // Save login state
-                    sessionStorage.setItem('adminLoggedIn', 'true');
-                } else {
-                    // Failed login
-                    loginError.style.display = 'block';
-                    document.getElementById('password').value = '';
-                }
-            });
-
-            // Check if already logged in
-            if (sessionStorage.getItem('adminLoggedIn') === 'true') {
-                loginScreen.style.display = 'none';
-                dashboard.style.display = 'block';
-                loadAppointments();
-            }
-
-            // ========== LOGOUT ==========
-            logoutBtn.addEventListener('click', function() {
-                sessionStorage.removeItem('adminLoggedIn');
-                location.reload();
-            });
-
-            // ========== LOAD APPOINTMENTS ==========
-            function loadAppointments() {
-                const appointmentsRef = window.firebaseRef(window.firebaseDatabase, 'appointments');
+                    loadDashboardData();
+                }, 500);
                 
-                window.firebaseOnValue(appointmentsRef, (snapshot) => {
-                    const appointments = snapshot.val();
-                    
-                    if (appointments && Object.keys(appointments).length > 0) {
-                        displayAppointments(appointments);
-                        updateStats(appointments);
-                    } else {
-                        showNoAppointments();
-                    }
-                });
+                // Save login state
+                sessionStorage.setItem('adminLoggedIn', 'true');
+            } else {
+                // Show error
+                loginError.classList.add('show');
+                setTimeout(() => {
+                    loginError.classList.remove('show');
+                }, 3000);
             }
+        });
 
-            function displayAppointments(appointments) {
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            loginScreen.style.display = 'none';
+            dashboard.style.display = 'block';
+            loadDashboardData();
+        }
+
+        // Logout Logic
+        logoutBtn.addEventListener('click', function() {
+            sessionStorage.removeItem('adminLoggedIn');
+            dashboard.style.display = 'none';
+            loginScreen.style.display = 'flex';
+            setTimeout(() => {
+                loginScreen.style.opacity = '1';
+            }, 10);
+            
+            // Clear form
+            document.getElementById('username').value = 'admin';
+            document.getElementById('password').value = 'pass123';
+        });
+
+        // Modal Functions
+        function openModal(modal) {
+            modal.classList.add('active');
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modal) {
+            modal.classList.remove('active');
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Notes Modal
+        document.getElementById('notesBtn').addEventListener('click', () => {
+            database.ref('notes').once('value').then(snapshot => {
+                const notes = snapshot.val();
+                document.getElementById('notesText').value = notes || '';
+                openModal(notesModal);
+            });
+        });
+
+        document.getElementById('closeNotesModal').addEventListener('click', () => closeModal(notesModal));
+        document.getElementById('cancelNotes').addEventListener('click', () => closeModal(notesModal));
+        modalOverlay.addEventListener('click', () => {
+            closeModal(notesModal);
+            closeModal(routineModal);
+            closeModal(hearingModal);
+        });
+
+        document.getElementById('saveNotes').addEventListener('click', () => {
+            const notes = document.getElementById('notesText').value;
+            database.ref('notes').set(notes)
+                .then(() => {
+                    alert('Notes saved successfully!');
+                    closeModal(notesModal);
+                })
+                .catch(error => {
+                    console.error('Error saving notes:', error);
+                    alert('Error saving notes!');
+                });
+        });
+
+        // Routine Modal
+        document.getElementById('routineBtn').addEventListener('click', () => {
+            database.ref('routine').once('value').then(snapshot => {
+                const routine = snapshot.val();
+                document.getElementById('routineText').value = routine || '';
+                openModal(routineModal);
+            });
+        });
+
+        document.getElementById('closeRoutineModal').addEventListener('click', () => closeModal(routineModal));
+        document.getElementById('cancelRoutine').addEventListener('click', () => closeModal(routineModal));
+
+        document.getElementById('saveRoutine').addEventListener('click', () => {
+            const routine = document.getElementById('routineText').value;
+            database.ref('routine').set(routine)
+                .then(() => {
+                    alert('Routine saved successfully!');
+                    closeModal(routineModal);
+                })
+                .catch(error => {
+                    console.error('Error saving routine:', error);
+                    alert('Error saving routine!');
+                });
+        });
+
+        // Hearing Dates Modal
+        document.getElementById('hearingBtn').addEventListener('click', () => {
+            database.ref('hearingDates').once('value').then(snapshot => {
+                const hearing = snapshot.val();
+                document.getElementById('hearingText').value = hearing || '';
+                openModal(hearingModal);
+            });
+        });
+
+        document.getElementById('closeHearingModal').addEventListener('click', () => closeModal(hearingModal));
+        document.getElementById('cancelHearing').addEventListener('click', () => closeModal(hearingModal));
+
+        document.getElementById('saveHearing').addEventListener('click', () => {
+            const hearing = document.getElementById('hearingText').value;
+            database.ref('hearingDates').set(hearing)
+                .then(() => {
+                    alert('Hearing dates saved successfully!');
+                    closeModal(hearingModal);
+                })
+                .catch(error => {
+                    console.error('Error saving hearing dates:', error);
+                    alert('Error saving hearing dates!');
+                });
+        });
+
+        // Load Dashboard Data
+        function loadDashboardData() {
+            const appointmentsRef = database.ref('appointments');
+            
+            appointmentsRef.on('value', (snapshot) => {
+                const appointments = snapshot.val();
+                const appointmentsList = document.getElementById('appointmentsList');
                 appointmentsList.innerHTML = '';
                 
-                // Convert to array and sort by timestamp (newest first)
-                const appointmentsArray = Object.entries(appointments)
-                    .map(([id, data]) => ({ id, ...data }))
-                    .sort((a, b) => b.timestamp - a.timestamp);
+                let total = 0;
+                let pending = 0;
+                let confirmed = 0;
+                let cancelled = 0;
                 
-                appointmentsArray.forEach((appointment) => {
-                    const row = document.createElement('div');
-                    row.className = 'table-row';
+                if (appointments) {
+                    // Convert to array and sort by timestamp (newest first)
+                    const appointmentsArray = Object.entries(appointments)
+                        .map(([id, data]) => ({ id, ...data }))
+                        .sort((a, b) => b.timestamp - a.timestamp);
                     
-                    // Format date
-                    let formattedDate = 'N/A';
-                    try {
-                        const date = new Date(appointment.appointmentDate);
-                        if (!isNaN(date.getTime())) {
-                            formattedDate = date.toLocaleDateString('en-US', {
-                                month: 'short',
-                                day: 'numeric',
-                                year: 'numeric'
-                            });
+                    appointmentsArray.forEach((appointment, index) => {
+                        total++;
+                        
+                        // Update status counts
+                        switch (appointment.status) {
+                            case 'pending':
+                                pending++;
+                                break;
+                            case 'confirmed':
+                                confirmed++;
+                                break;
+                            case 'cancelled':
+                                cancelled++;
+                                break;
                         }
-                    } catch (e) {
-                        formattedDate = appointment.appointmentDate || 'N/A';
-                    }
-                    
-                    // Status badge
-                    const status = appointment.status || 'pending';
-                    const statusClass = `status-${status}`;
-                    const statusText = status.charAt(0).toUpperCase() + status.slice(1);
-                    
-                    // Create row HTML for desktop
-                    row.innerHTML = `
-                        <div>
-                            <strong>${appointment.name || 'N/A'}</strong><br>
-                            <small style="color: #b0b0b0;">${appointment.selectedLawyer || 'Any lawyer'}</small>
-                        </div>
-                        <div>
-                            ${appointment.contact || 'N/A'}<br>
-                            <small style="color: #b0b0b0;">${appointment.email || 'No email'}</small>
-                        </div>
-                        <div>
-                            ${formattedDate}<br>
-                            <small style="color: #b0b0b0;">${appointment.time || 'No time'}</small>
-                        </div>
-                        <div>
-                            ${appointment.caseType || 'N/A'}<br>
-                            <small style="color: #b0b0b0;">${(appointment.description || '').substring(0, 20)}${appointment.description?.length > 20 ? '...' : ''}</small>
-                        </div>
-                        <div>
-                            <span class="status-badge ${statusClass}">${statusText}</span>
-                        </div>
-                        <div class="action-buttons">
-                            <button class="action-btn confirm-btn" data-id="${appointment.id}" title="Confirm">
-                                <i class="fas fa-check"></i>
-                            </button>
-                            <button class="action-btn cancel-btn" data-id="${appointment.id}" title="Cancel">
-                                <i class="fas fa-times"></i>
-                            </button>
-                            <button class="action-btn delete-btn" data-id="${appointment.id}" title="Delete">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                        
+                        // Create appointment row
+                        setTimeout(() => {
+                            const row = createAppointmentRow(appointment, index);
+                            appointmentsList.appendChild(row);
+                        }, index * 100);
+                    });
+                } else {
+                    appointmentsList.innerHTML = `
+                        <div class="no-data">
+                            <i class="fas fa-calendar-times" style="font-size: 3rem; margin-bottom: 20px; color: #777;"></i>
+                            <p>No appointments found</p>
                         </div>
                     `;
-                    
-                    appointmentsList.appendChild(row);
-                    
-                    // Add event listeners
-                    row.querySelector('.confirm-btn').addEventListener('click', () => 
-                        updateStatus(appointment.id, 'confirmed'));
-                    row.querySelector('.cancel-btn').addEventListener('click', () => 
-                        updateStatus(appointment.id, 'cancelled'));
-                    row.querySelector('.delete-btn').addEventListener('click', () => 
-                        deleteAppointment(appointment.id));
-                });
-            }
-
-            function showNoAppointments() {
-                appointmentsList.innerHTML = `
-                    <div class="no-data">
-                        <i class="fas fa-calendar-times"></i>
-                        <p>No appointments found yet.</p>
-                    </div>
-                `;
+                }
                 
-                // Reset stats
-                document.getElementById('totalAppointments').textContent = '0';
-                document.getElementById('pendingAppointments').textContent = '0';
-                document.getElementById('confirmedAppointments').textContent = '0';
-                document.getElementById('cancelledAppointments').textContent = '0';
-            }
-
-            function updateStats(appointments) {
-                let total = 0, pending = 0, confirmed = 0, cancelled = 0;
-                
-                Object.values(appointments).forEach(appointment => {
-                    total++;
-                    switch (appointment.status) {
-                        case 'confirmed': confirmed++; break;
-                        case 'cancelled': cancelled++; break;
-                        default: pending++;
-                    }
-                });
-                
+                // Update stats
                 document.getElementById('totalAppointments').textContent = total;
                 document.getElementById('pendingAppointments').textContent = pending;
                 document.getElementById('confirmedAppointments').textContent = confirmed;
                 document.getElementById('cancelledAppointments').textContent = cancelled;
-            }
+            });
+        }
 
-            // ========== APPOINTMENT ACTIONS ==========
-            function updateStatus(appointmentId, status) {
-                if (confirm(`Change status to ${status}?`)) {
-                    const appointmentRef = window.firebaseRef(window.firebaseDatabase, `appointments/${appointmentId}/status`);
-                    window.firebaseSet(appointmentRef, status)
-                        .then(() => {
-                            showToast(`Status updated to ${status}`);
-                        })
-                        .catch(error => {
-                            showToast('Error updating status!', 'error');
-                            console.error('Error:', error);
-                        });
-                }
+        function createAppointmentRow(appointment, index) {
+            const row = document.createElement('div');
+            row.className = 'table-row';
+            
+            // Format date
+            const date = new Date(appointment.appointmentDate);
+            const formattedDate = date.toLocaleDateString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+            
+            // Get status badge
+            let statusBadge = '';
+            switch (appointment.status) {
+                case 'pending':
+                    statusBadge = '<span class="status-badge status-pending">Pending</span>';
+                    break;
+                case 'confirmed':
+                    statusBadge = '<span class="status-badge status-confirmed">Confirmed</span>';
+                    break;
+                case 'cancelled':
+                    statusBadge = '<span class="status-badge status-cancelled">Cancelled</span>';
+                    break;
+                default:
+                    statusBadge = '<span class="status-badge status-pending">Pending</span>';
             }
+            
+            // Create row content
+            row.innerHTML = `
+                <div class="table-cell" data-label="Client">
+                    <div>
+                        <strong>${appointment.name}</strong><br>
+                        <small>${appointment.description.substring(0, 50)}${appointment.description.length > 50 ? '...' : ''}</small>
+                    </div>
+                </div>
+                <div class="table-cell" data-label="Contact">
+                    ${appointment.contact}<br>
+                    <small>${appointment.email}</small>
+                </div>
+                <div class="table-cell" data-label="Date & Time">
+                    ${formattedDate}<br>
+                    <small>${appointment.time}</small>
+                </div>
+                <div class="table-cell" data-label="Case Type">
+                    ${appointment.caseType}<br>
+                    <small>${appointment.selectedLawyer}</small>
+                </div>
+                <div class="table-cell" data-label="Status">
+                    ${statusBadge}
+                </div>
+                <div class="table-cell" data-label="Actions">
+                    <div style="display: flex; gap: 10px;">
+                        <button class="action-btn confirm-btn" data-id="${appointment.id}" title="Confirm">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="action-btn cancel-btn" data-id="${appointment.id}" title="Cancel">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <button class="action-btn delete-btn" data-id="${appointment.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add animation delay
+            setTimeout(() => {
+                row.classList.add('visible');
+            }, index * 100);
+            
+            // Add event listeners to buttons
+            row.querySelector('.confirm-btn').addEventListener('click', () => updateStatus(appointment.id, 'confirmed'));
+            row.querySelector('.cancel-btn').addEventListener('click', () => updateStatus(appointment.id, 'cancelled'));
+            row.querySelector('.delete-btn').addEventListener('click', () => deleteAppointment(appointment.id));
+            
+            return row;
+        }
 
-            function deleteAppointment(appointmentId) {
-                if (confirm('Delete this appointment?')) {
-                    const appointmentRef = window.firebaseRef(window.firebaseDatabase, `appointments/${appointmentId}`);
-                    window.firebaseRemove(appointmentRef)
-                        .then(() => {
-                            showToast('Appointment deleted');
-                        })
-                        .catch(error => {
-                            showToast('Error deleting appointment!', 'error');
-                            console.error('Error:', error);
-                        });
-                }
+        function updateStatus(appointmentId, status) {
+            if (confirm(`Are you sure you want to mark this appointment as ${status}?`)) {
+                database.ref(`appointments/${appointmentId}/status`).set(status)
+                    .then(() => {
+                        console.log(`Appointment ${appointmentId} marked as ${status}`);
+                    })
+                    .catch(error => {
+                        console.error('Error updating status:', error);
+                        alert('Error updating appointment status!');
+                    });
             }
+        }
 
-            // ========== TOAST NOTIFICATION ==========
-            function showToast(message, type = 'success') {
-                // Remove existing toast
-                const existingToast = document.querySelector('.toast');
-                if (existingToast) {
-                    existingToast.remove();
-                }
-                
-                // Create new toast
-                const toast = document.createElement('div');
-                toast.className = `toast ${type}`;
-                toast.innerHTML = `
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
-                    <span>${message}</span>
-                `;
-                
-                document.body.appendChild(toast);
-                
-                // Auto remove after 3 seconds
-                setTimeout(() => {
-                    toast.remove();
-                }, 3000);
+        function deleteAppointment(appointmentId) {
+            if (confirm('Are you sure you want to delete this appointment? This action cannot be undone.')) {
+                database.ref(`appointments/${appointmentId}`).remove()
+                    .then(() => {
+                        console.log(`Appointment ${appointmentId} deleted`);
+                    })
+                    .catch(error => {
+                        console.error('Error deleting appointment:', error);
+                        alert('Error deleting appointment!');
+                    });
             }
-        });
+        }
+
+        // Initialize dashboard when page loads
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            loadDashboardData();
+        }
     </script>
 </body>
 </html>
